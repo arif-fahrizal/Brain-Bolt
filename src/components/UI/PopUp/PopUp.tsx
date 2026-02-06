@@ -1,4 +1,8 @@
 import { Settings, X } from 'lucide-react';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import QuestionsContext from '../../../contexts/Questions/QuestionsContext';
+import { fetchAPI } from '../../../lib/api';
 import type { Category } from '../../../types/category.types';
 import { difficulty } from '../../../utils/difficulty';
 import Input from '../Inputs/Input';
@@ -10,13 +14,27 @@ interface QuizSetupPopupProps {
 }
 
 export default function QuizSetupPopup({ isOpen, onClose }: QuizSetupPopupProps) {
-  const isCategoriesExist = localStorage.getItem('categories');
-  const category = isCategoriesExist ? JSON.parse(isCategoriesExist) : ([] as Category[]);
-  const categories = category.map((category: Category) => ({ label: category.name, value: category.id }));
+  const navigate = useNavigate();
+  const { categories, setQuestions } = useContext(QuestionsContext);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [questionCount, setQuestionCount] = useState(10);
+  const [selectedCategory, setSelectedCategory] = useState(1);
+  const [selectedDifficulty, setSelectedDifficulty] = useState('');
+  const mappedCategories = categories.map((category: Category) => ({ label: category.name, value: category.id }));
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onClose();
+    try {
+      const data = await fetchAPI(
+        `/api.php?amount=${questionCount}&category=${selectedCategory}&difficulty=${selectedDifficulty}&type=multiple`
+      );
+      setQuestions(data.results);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      onClose();
+      navigate('/quiz');
+    }
   };
 
   if (!isOpen) return null;
@@ -45,9 +63,23 @@ export default function QuizSetupPopup({ isOpen, onClose }: QuizSetupPopupProps)
           </div>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-            <Input label="Question Count" type="number" min={10} defaultValue={10} />
-            <Select label="Select Category" options={categories || []} />
-            <Select label="Select Difficulty" options={difficulty} />
+            <Input
+              label="Question Count"
+              type="number"
+              min={10}
+              defaultValue={10}
+              onChange={e => setQuestionCount(Number(e.target.value))}
+            />
+            <Select
+              label="Select Category"
+              options={mappedCategories || []}
+              onChange={e => setSelectedCategory(Number(e.target.value))}
+            />
+            <Select
+              label="Select Difficulty"
+              options={difficulty}
+              onChange={e => setSelectedDifficulty(e.target.value)}
+            />
             <button className="w-full p-2.5 rounded-full duration-300 bg-white hover:bg-gray-200">
               Generate & Start Quiz
             </button>

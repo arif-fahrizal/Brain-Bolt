@@ -1,34 +1,34 @@
 import { CircleStar, Play } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
+import QuestionsContext from '../../../contexts/Questions/QuestionsContext';
 import useBoolean from '../../../hooks/useBoolean';
-import { fetchAPI } from '../../../lib/api';
-import type { Category } from '../../../types/category.types';
 import { CATEGORY_MAPPINGS } from '../../../utils/categories';
 import QuizSetupPopup from '../../UI/PopUp/PopUp';
 
 export default function CategoriesSection() {
-  const [categories, setCategories] = useState<Category[]>([]);
+  // const [categories, setCategories] = useState<Category[]>([]);
+  const { categories } = useContext(QuestionsContext);
   const [selectedCategory, setSelectedCategory] = useState<string | number>('');
 
   const isModalOpen = useBoolean();
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const isCategoriesExist = localStorage.getItem('categories');
+  // useEffect(() => {
+  //   const fetchCategories = async () => {
+  //     const isCategoriesExist = localStorage.getItem('categories');
 
-      if (isCategoriesExist) return setCategories(JSON.parse(isCategoriesExist));
+  //     if (isCategoriesExist) return setCategories(JSON.parse(isCategoriesExist));
 
-      try {
-        const categories = await fetchAPI('/api_category.php');
-        localStorage.setItem('categories', JSON.stringify(categories.trivia_categories));
-        setCategories(categories.trivia_categories);
-      } catch (error) {
-        console.error('Error fetching categories:', error);
-      }
-    };
+  //     try {
+  //       const categories = await fetchAPI('/api_category.php');
+  //       localStorage.setItem('categories', JSON.stringify(categories.trivia_categories));
+  //       setCategories(categories.trivia_categories);
+  //     } catch (error) {
+  //       console.error('Error fetching categories:', error);
+  //     }
+  //   };
 
-    fetchCategories();
-  }, []);
+  //   fetchCategories();
+  // }, []);
 
   return (
     <section className="container mx-auto px-4 py-16">

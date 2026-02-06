@@ -1,9 +1,22 @@
 import { ChevronRight, Play, Trophy } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import useBoolean from '../../../hooks/useBoolean';
 import QuizSetupPopup from '../../UI/PopUp/PopUp';
 
 export default function HeroSection() {
+  const navigate = useNavigate();
   const isModalOpen = useBoolean();
+
+  const handleStartQuiz = () => {
+    const isQuizExist = localStorage.getItem('quiz');
+
+    if (isQuizExist) {
+      navigate('/quiz');
+    } else {
+      isModalOpen.onTrue();
+    }
+  };
+
   return (
     <section className="container mx-auto px-4 py-16 text-center">
       <div className="max-w-4xl mx-auto">
@@ -25,7 +38,7 @@ export default function HeroSection() {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
-            onClick={isModalOpen.toggle}
+            onClick={handleStartQuiz}
             className="group flex justify-center items-center gap-2 px-8 py-4 text-lg text-white font-bold rounded-xl transition-all bg-linear-to-r from-purple-500 to-pink-500 hover:shadow-2xl hover:scale-105"
           >
             <Play className="w-5 h-5 transition-transform group-hover:scale-110" />

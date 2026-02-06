@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import QuestionsProvider from './contexts/Questions/QuestionsProvider';
 import './index.css';
 import HomePage from './pages/Home';
 import QuizPage from './pages/Quiz';
@@ -33,6 +34,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <QuestionsProvider>
+      <RouterProvider router={router} />
+    </QuestionsProvider>
   </StrictMode>
 );
