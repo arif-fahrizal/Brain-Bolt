@@ -1,10 +1,28 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthLayout from '../components/Layouts/AuthLayout';
 import AuthInput from '../components/UI/Inputs/AuthInput';
+import { signUp } from '../services/auth';
 
 export default function SignUpPage() {
+  const navigate = useNavigate();
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
   const handleSignUp = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    try {
+      const res = signUp({ username, password, confirmPassword });
+
+      if (!res) return alert('Terjadi kesalahan, silahkan coba lagi');
+      if (!res.status) return alert(res.message);
+
+      navigate('/sign-in');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -14,9 +32,24 @@ export default function SignUpPage() {
         onSubmit={handleSignUp}
         className="flex flex-col justify-center items-center gap-5 md:h-full mx-auto md:mt-0"
       >
-        <AuthInput label="Email" type="email" placeholder="Enter your email" />
-        <AuthInput label="Password" type="password" placeholder="************" />
-        <AuthInput label="Confirm Password" type="password" placeholder="************" />
+        <AuthInput
+          label="Username"
+          type="text"
+          placeholder="Enter your username"
+          onChange={({ target }) => setUsername(target.value)}
+        />
+        <AuthInput
+          label="Password"
+          type="password"
+          placeholder="************"
+          onChange={({ target }) => setPassword(target.value)}
+        />
+        <AuthInput
+          label="Confirm Password"
+          type="password"
+          placeholder="************"
+          onChange={({ target }) => setConfirmPassword(target.value)}
+        />
         <button className="btn-primary w-full mt-10">Sign Up</button>
         <p className="text-center">
           Already have an account?{' '}
