@@ -1,6 +1,22 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import AuthContext from '../../contexts/Auth/AuthContext';
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
+  const { user } = useContext(AuthContext);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const authPage = ['/sign-in', '/sign-up'];
+
+    if (user.status && authPage.includes(pathname)) {
+      navigate('/');
+    } else if (!user.status && !authPage.includes(pathname)) {
+      navigate('/sign-in');
+    }
+  }, [user, pathname, navigate]);
+
   return (
     <div className="flex flex-col justify-center items-center w-full min-h-dvh pb-5 text-white bg-linear-to-br from-slate-900 via-purple-900 to-slate-900 bg-opacity-30 filter backdrop-blur md:h-full">
       <img

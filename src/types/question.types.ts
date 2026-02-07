@@ -6,3 +6,10 @@ export interface Question {
   question: string;
   type: string;
 }
+
+export interface QuizHistory {
+  category: string;
+  date: string;
+  difficulty: string;
+  score: number;
+}

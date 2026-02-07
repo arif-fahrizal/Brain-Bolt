@@ -1,14 +1,12 @@
+import type { QuizHistory } from './question.types';
+
 export interface User {
   username: string;
   password: string;
-  quizHistory?: {
-    category: string;
-    date: string;
-    difficulty: string;
-    score: number;
-  };
+  quizHistory?: QuizHistory[];
+  status: boolean;
 }
 
-export interface SignUpUser extends User {
+export interface SignUpUser extends Omit<User, 'quizHistory' | 'status'> {
   confirmPassword: string;
 }

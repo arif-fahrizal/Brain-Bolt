@@ -1,26 +1,53 @@
 import { Zap } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import AuthContext from '../../contexts/Auth/AuthContext';
+import { signOut } from '../../services/auth.service';
+import type { User } from '../../types/auth.types';
 
 export default function Header() {
+  const { user, setUser } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    navigate('/sign-in');
+    setUser({} as User);
+    signOut();
+  };
   return (
     <header className="container fixed top-0 left-0 right-0 mx-auto px-4 py-6 z-99">
       <div className="flex justify-between items-center">
-        <div className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2">
           <div className="flex justify-center items-center w-10 h-10 rounded-lg bg-linear-to-br from-purple-500 to-pink-500">
             <Zap className="w-6 h-6 text-white" />
           </div>
           <h1 className="text-2xl text-white font-bold">BrainBolt</h1>
-        </div>
-        <div className="flex gap-3">
-          <Link to="/sign-in" className="px-4 py-2 text-white transition-colors hover:text-purple-300">
-            Login
-          </Link>
-          <Link
-            to="/sign-up"
-            className="px-6 py-2 text-white font-semibold rounded-lg transition-all bg-linear-to-r from-purple-500 to-pink-500 hover:shadow-lg hover:scale-105"
-          >
-            Sign Up
-          </Link>
+        </Link>
+        <div className="flex items-center text-white gap-5">
+          {user.status ? (
+            <>
+              <span className="">{user.username}</span>
+              <button
+                onClick={handleSignOut}
+                className="px-6 py-2 font-semibold rounded-lg transition-all bg-linear-to-r from-purple-500 to-pink-500 hover:shadow-lg hover:scale-105"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/sign-in" className="px-4 py-2 transition-colors hover:text-purple-300">
+                Login
+              </Link>
+              <Link
+                to="/sign-up"
+                className="px-6 py-2 font-semibold rounded-lg transition-all bg-linear-to-r from-purple-500 to-pink-500 hover:shadow-lg hover:scale-105"
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </header>

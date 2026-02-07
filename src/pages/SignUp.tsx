@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthLayout from '../components/Layouts/AuthLayout';
 import AuthInput from '../components/UI/Inputs/AuthInput';
-import { signUp } from '../services/auth';
+import { signUp } from '../services/auth.service';
 
 export default function SignUpPage() {
   const navigate = useNavigate();
@@ -19,6 +19,7 @@ export default function SignUpPage() {
       if (!res) return alert('Terjadi kesalahan, silahkan coba lagi');
       if (!res.status) return alert(res.message);
 
+      alert(res.message);
       navigate('/sign-in');
     } catch (error) {
       console.log(error);
