@@ -1,12 +1,11 @@
 import { Zap } from 'lucide-react';
-import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import AuthContext from '../../contexts/Auth/AuthContext';
+import useAuth from '../../hooks/useAuth';
 import { signOut } from '../../services/auth.service';
 import type { User } from '../../types/auth.types';
 
 export default function Header() {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser } = useAuth();
 
   const navigate = useNavigate();
 

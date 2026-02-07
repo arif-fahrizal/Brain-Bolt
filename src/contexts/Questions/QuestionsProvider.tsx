@@ -1,22 +1,26 @@
 import { useEffect, useState } from 'react';
 import { fetchAPI } from '../../lib/api';
+import type { User } from '../../types/auth.types';
 import type { Category } from '../../types/category.types';
-import type { Question } from '../../types/question.types';
+import type { Answer, Question, QuizHistory } from '../../types/question.types';
+import { getCurrentUser, updateUserInStorage } from '../../utils/auth.utils';
 import QuestionsContext from './QuestionsContext';
 
 interface QuizData {
   questions: Question[];
   currentQuestion: number;
-  time: number;
-  score: number;
+  timer: number;
+  answers: Answer[];
 }
+
+const TIMER = 60 * 10;
 
 export default function QuestionsProvider({ children }: { children: React.ReactNode }) {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [time, setTime] = useState<number>(60 * 10);
-  const [score, setScore] = useState<number>(0);
+  const [timer, setTimer] = useState<number>(TIMER);
+  const [answers, setAnswers] = useState<Answer[]>([]);
 
   useEffect(() => {
     const loadQuizData = () => {
@@ -26,8 +30,8 @@ export default function QuestionsProvider({ children }: { children: React.ReactN
           const quizData: QuizData = JSON.parse(savedData);
           setQuestions(quizData.questions);
           setCurrentQuestion(quizData.currentQuestion);
-          setTime(quizData.time);
-          setScore(quizData.score);
+          setTimer(quizData.timer);
+          setAnswers(quizData.answers);
         }
       } catch (error) {
         console.error('Error loading quiz data:', error);
@@ -51,9 +55,36 @@ export default function QuestionsProvider({ children }: { children: React.ReactN
   }, []);
 
   useEffect(() => {
+    const user = getCurrentUser();
+
+    if (!user) return;
+
+    const question = questions[0];
+
+    const quizHistory: QuizHistory = {
+      category: question?.category,
+      date: new Date().toISOString(),
+      difficulty: question?.difficulty,
+      answers: [...answers],
+    };
+
+    const updateUser: User = {
+      ...user,
+      quizHistory: [...(user?.quizHistory || []), quizHistory],
+    };
+
+    if (timer <= 0 || (questions.length !== 0 && currentQuestion > questions.length - 1)) {
+      updateUserInStorage(updateUser);
+    }
+
+    console.log(questions.length !== 0 && currentQuestion > questions.length - 1, 'LOG');
+    console.log(updateUser);
+  }, [currentQuestion, questions, timer, answers]);
+
+  useEffect(() => {
     const saveQuizData = () => {
-      if (questions.length === 0) return;
-      localStorage.setItem('quiz', JSON.stringify({ questions, currentQuestion, time, score }));
+      if (questions.length === 0 || questions.length >= currentQuestion || timer <= 0) return;
+      localStorage.setItem('quiz', JSON.stringify({ questions, currentQuestion, timer, answers }));
     };
 
     window.addEventListener('beforeunload', saveQuizData);
@@ -61,7 +92,7 @@ export default function QuestionsProvider({ children }: { children: React.ReactN
     return () => {
       window.removeEventListener('beforeunload', saveQuizData);
     };
-  }, [questions, currentQuestion, time, score]);
+  }, [questions, currentQuestion, timer, answers]);
 
   return (
     <QuestionsContext.Provider
@@ -71,10 +102,10 @@ export default function QuestionsProvider({ children }: { children: React.ReactN
         currentQuestion,
         setCurrentQuestion,
         categories,
-        time,
-        setTime,
-        score,
-        setScore,
+        timer,
+        setTimer,
+        answers,
+        setAnswers,
       }}
     >
       {children}

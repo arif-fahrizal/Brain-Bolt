@@ -1,34 +1,29 @@
 import { CircleStar, Play } from 'lucide-react';
-import { useContext, useState } from 'react';
-import QuestionsContext from '../../../contexts/Questions/QuestionsContext';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
 import useBoolean from '../../../hooks/useBoolean';
+import useQuestions from '../../../hooks/useQuestions';
 import { CATEGORY_MAPPINGS } from '../../../utils/categories';
 import QuizSetupPopup from '../../UI/PopUp/PopUp';
 
 export default function CategoriesSection() {
-  // const [categories, setCategories] = useState<Category[]>([]);
-  const { categories } = useContext(QuestionsContext);
+  const { user } = useAuth();
+  const { questions, categories } = useQuestions();
   const [selectedCategory, setSelectedCategory] = useState<string | number>('');
 
+  const navigate = useNavigate();
   const isModalOpen = useBoolean();
 
-  // useEffect(() => {
-  //   const fetchCategories = async () => {
-  //     const isCategoriesExist = localStorage.getItem('categories');
-
-  //     if (isCategoriesExist) return setCategories(JSON.parse(isCategoriesExist));
-
-  //     try {
-  //       const categories = await fetchAPI('/api_category.php');
-  //       localStorage.setItem('categories', JSON.stringify(categories.trivia_categories));
-  //       setCategories(categories.trivia_categories);
-  //     } catch (error) {
-  //       console.error('Error fetching categories:', error);
-  //     }
-  //   };
-
-  //   fetchCategories();
-  // }, []);
+  const handleStartQuiz = () => {
+    if (!user.status) {
+      navigate('/sign-in');
+    } else if (questions.length > 0) {
+      navigate('/quiz');
+    } else {
+      isModalOpen.onTrue();
+    }
+  };
 
   return (
     <section className="container mx-auto px-4 py-16">
@@ -70,7 +65,7 @@ export default function CategoriesSection() {
 
             <button
               type="button"
-              onClick={isModalOpen.toggle}
+              onClick={handleStartQuiz}
               className={`flex justify-center items-center gap-2 w-full mt-auto py-3 ${CATEGORY_MAPPINGS[category.name].color} text-white font-semibold rounded-xl transition-all transform translate-y-2 bg-linear-to-r opacity-0 group-hover:opacity-100 group-hover:translate-y-0`}
             >
               <Play className="w-4 h-4" />
@@ -78,7 +73,7 @@ export default function CategoriesSection() {
             </button>
           </div>
         ))}
-        <QuizSetupPopup isOpen={isModalOpen.value} onClose={isModalOpen.toggle} />
+        <QuizSetupPopup isOpen={isModalOpen.value} onClose={isModalOpen.onFalse} />
       </div>
     </section>
   );

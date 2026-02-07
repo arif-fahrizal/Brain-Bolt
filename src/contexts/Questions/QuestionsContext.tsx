@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import type { Category } from '../../types/category.types';
-import type { Question } from '../../types/question.types';
+import type { Answer, Question } from '../../types/question.types';
 
 export interface QuestionsContextType {
   questions: Question[];
@@ -8,10 +8,10 @@ export interface QuestionsContextType {
   currentQuestion: number;
   setCurrentQuestion: React.Dispatch<React.SetStateAction<number>>;
   categories: Category[];
-  time: number;
-  setTime: React.Dispatch<React.SetStateAction<number>>;
-  score: number;
-  setScore: React.Dispatch<React.SetStateAction<number>>;
+  timer: number;
+  setTimer: React.Dispatch<React.SetStateAction<number>>;
+  answers: Answer[];
+  setAnswers: React.Dispatch<React.SetStateAction<Answer[]>>;
 }
 
 const QuestionsContext = createContext<QuestionsContextType>({} as QuestionsContextType);

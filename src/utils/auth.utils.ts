@@ -21,6 +21,11 @@ export const setStoredUsers = (users: User[]): void => {
   }
 };
 
+export const getCurrentUser = (): User | null => {
+  const users = getStoredUsers();
+  return users.find(u => u.status === true) || null;
+};
+
 export const findUserByUsername = (username: string): User | undefined => {
   const users = getStoredUsers();
   return users.find(u => u.username === username);
@@ -31,7 +36,12 @@ export const updateUserStatus = (username: string, status: boolean): User[] => {
   return users.map(u => (u.username === username ? { ...u, status } : u));
 };
 
-export const getCurrentUser = (): User | null => {
-  const users = getStoredUsers();
-  return users.find(u => u.status === true) || null;
+export const updateUserInStorage = (updatedUser: User): void => {
+  try {
+    const users = JSON.parse(localStorage.getItem('user') || '[]');
+    const updatedUsers = users.map((u: User) => (u.username === updatedUser.username ? updatedUser : u));
+    localStorage.setItem('user', JSON.stringify(updatedUsers));
+  } catch (error) {
+    console.error('Failed to update user:', error);
+  }
 };

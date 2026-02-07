@@ -7,9 +7,14 @@ export interface Question {
   type: string;
 }
 
+export interface Answer {
+  correctAnswer: string;
+  selectedAnswer: string;
+}
+
 export interface QuizHistory {
   category: string;
   date: string;
   difficulty: string;
-  score: number;
+  answers: Answer[];
 }

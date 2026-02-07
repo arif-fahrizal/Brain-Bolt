@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import AuthContext from '../../contexts/Auth/AuthContext';
+import useAuth from '../../hooks/useAuth';
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
   const { pathname } = useLocation();
   const navigate = useNavigate();
 

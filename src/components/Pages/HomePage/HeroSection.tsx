@@ -1,16 +1,21 @@
 import { ChevronRight, Play, Trophy } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
 import useBoolean from '../../../hooks/useBoolean';
+import useQuestions from '../../../hooks/useQuestions';
 import QuizSetupPopup from '../../UI/PopUp/PopUp';
 
 export default function HeroSection() {
+  const { user } = useAuth();
+  const { questions } = useQuestions();
+
   const navigate = useNavigate();
   const isModalOpen = useBoolean();
 
   const handleStartQuiz = () => {
-    const isQuizExist = localStorage.getItem('quiz');
-
-    if (isQuizExist) {
+    if (!user.status) {
+      navigate('/sign-in');
+    } else if (questions.length > 0) {
       navigate('/quiz');
     } else {
       isModalOpen.onTrue();

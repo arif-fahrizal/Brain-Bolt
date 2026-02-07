@@ -1,13 +1,13 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthLayout from '../components/Layouts/AuthLayout';
 import AuthInput from '../components/UI/Inputs/AuthInput';
-import AuthContext from '../contexts/Auth/AuthContext';
+import useAuth from '../hooks/useAuth';
 import { signIn } from '../services/auth.service';
 import type { User } from '../types/auth.types';
 
 export default function SignInPage() {
-  const { setUser } = useContext(AuthContext);
+  const { setUser } = useAuth();
 
   const navigate = useNavigate();
   const [username, setUsername] = useState('');

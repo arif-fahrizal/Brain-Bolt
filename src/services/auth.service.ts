@@ -47,9 +47,10 @@ export const signIn = (credentials: Pick<User, 'username' | 'password'>) => {
     }
 
     const updatedUsers = updateUserStatus(username, true);
+    const findUser = updatedUsers.find(u => u.username === username);
     setStoredUser(updatedUsers);
 
-    return { status: true, user: updatedUsers };
+    return { status: true, user: findUser };
   } catch (error) {
     console.error(error);
   }
