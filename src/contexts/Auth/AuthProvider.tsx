@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { User } from '../../types/auth.types';
-import { getStoredUsers } from '../../utils/auth.utils';
+import { getStoredUsers, updateUserInStorage } from '../../utils/auth.utils';
 import AuthContext from './AuthContext';
 
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -15,6 +15,20 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 
     loadUser();
   }, []);
+
+  useEffect(() => {
+    const saveUser = () => {
+      if (!user) return;
+
+      updateUserInStorage(user);
+    };
+
+    window.addEventListener('beforeunload', saveUser);
+
+    return () => {
+      window.removeEventListener('beforeunload', saveUser);
+    };
+  }, [user]);
 
   return <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>;
 }

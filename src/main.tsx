@@ -28,7 +28,7 @@ const router = createBrowserRouter([
     element: <QuizPage />,
   },
   {
-    path: '/score',
+    path: '/scores',
     element: <ScoresPage />,
   },
 ]);

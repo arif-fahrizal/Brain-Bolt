@@ -10,7 +10,6 @@ interface QuizHeaderProps {
 
 const QuizHeader = ({ category, difficulty, quizData, currentQuestion }: QuizHeaderProps) => {
   const progress = ((currentQuestion + 1) / quizData.length) * 100;
-  console.log('QUIZ HEADER');
   return (
     <div className="min-w-75 max-w-250 w-full mb-2.5 p-5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-lg shadow-xl">
       <div className="flex items-center justify-between mb-4">

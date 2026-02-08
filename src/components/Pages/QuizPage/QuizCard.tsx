@@ -24,8 +24,6 @@ const QuizCard = ({ questions, currentQuestion, setCurrentQuestion, setSelectedA
     setCurrentQuestion(currentQuestion + 1);
   };
 
-  console.log('QUIZ CARD');
-
   return (
     <div className="min-w-75 max-w-250 w-full mb-2.5 p-5 rounded-3xl border border-white/20 bg-white/10 backdrop-blur-lg shadow-2xl">
       <div className="mb-8">

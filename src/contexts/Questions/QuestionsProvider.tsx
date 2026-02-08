@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchAPI } from '../../lib/api';
-import type { User } from '../../types/auth.types';
 import type { Category } from '../../types/category.types';
-import type { Answer, Question, QuizHistory } from '../../types/question.types';
-import { getCurrentUser, updateUserInStorage } from '../../utils/auth.utils';
+import type { Answer, Question } from '../../types/question.types';
 import QuestionsContext from './QuestionsContext';
 
 interface QuizData {
@@ -13,7 +11,7 @@ interface QuizData {
   answers: Answer[];
 }
 
-const TIMER = 60 * 10;
+export const TIMER = 60 * 10;
 
 export default function QuestionsProvider({ children }: { children: React.ReactNode }) {
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -55,35 +53,9 @@ export default function QuestionsProvider({ children }: { children: React.ReactN
   }, []);
 
   useEffect(() => {
-    const user = getCurrentUser();
-
-    if (!user) return;
-
-    const question = questions[0];
-
-    const quizHistory: QuizHistory = {
-      category: question?.category,
-      date: new Date().toISOString(),
-      difficulty: question?.difficulty,
-      answers: [...answers],
-    };
-
-    const updateUser: User = {
-      ...user,
-      quizHistory: [...(user?.quizHistory || []), quizHistory],
-    };
-
-    if (timer <= 0 || (questions.length !== 0 && currentQuestion > questions.length - 1)) {
-      updateUserInStorage(updateUser);
-    }
-
-    console.log(questions.length !== 0 && currentQuestion > questions.length - 1, 'LOG');
-    console.log(updateUser);
-  }, [currentQuestion, questions, timer, answers]);
-
-  useEffect(() => {
     const saveQuizData = () => {
-      if (questions.length === 0 || questions.length >= currentQuestion || timer <= 0) return;
+      if (timer <= 0 || (questions.length !== 0 && currentQuestion > questions.length - 1)) return;
+
       localStorage.setItem('quiz', JSON.stringify({ questions, currentQuestion, timer, answers }));
     };
 
