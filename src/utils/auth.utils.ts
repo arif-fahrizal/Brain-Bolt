@@ -12,20 +12,6 @@ export const getStoredUsers = (): User[] => {
   }
 };
 
-export const setStoredUsers = (users: User[]): void => {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
-  } catch (error) {
-    console.error('Failed to store user:', error);
-    throw new Error('Storage operation failed');
-  }
-};
-
-export const getCurrentUser = (): User | null => {
-  const users = getStoredUsers();
-  return users.find(u => u.status === true) || null;
-};
-
 export const findUserByUsername = (username: string): User | undefined => {
   const users = getStoredUsers();
   return users.find(u => u.username === username);

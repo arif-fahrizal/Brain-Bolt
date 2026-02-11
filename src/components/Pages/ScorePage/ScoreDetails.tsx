@@ -1,5 +1,5 @@
 import { Check, FileText, Trophy, X } from 'lucide-react';
-import { getScoreGradient } from '../../../utils/score.utils';
+import { getScoreConfig } from '../../../utils/score.utils';
 
 interface ScoreDetailsProps {
   quizResult: {
@@ -12,6 +12,9 @@ interface ScoreDetailsProps {
 
 export default function ScoreDetails({ quizResult }: ScoreDetailsProps) {
   const { totalQuestions, correctAnswers, wrongAnswers, accuracy } = quizResult;
+
+  const { gradient } = getScoreConfig(accuracy);
+
   return (
     <div className="space-y-4 mb-8">
       <div
@@ -55,7 +58,7 @@ export default function ScoreDetails({ quizResult }: ScoreDetailsProps) {
 
       <div
         aria-label="Final Score"
-        className={`flex items-center justify-between p-5 bg-linear-to-r ${getScoreGradient(accuracy)} rounded-2xl shadow-lg`}
+        className={`flex items-center justify-between p-5 bg-linear-to-r ${gradient} rounded-2xl shadow-lg`}
       >
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
