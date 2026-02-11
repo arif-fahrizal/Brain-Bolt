@@ -3,9 +3,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
-  const { user } = useAuth();
-  const { pathname } = useLocation();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const { user } = useAuth();
 
   useEffect(() => {
     const authPage = ['/sign-in', '/sign-up'];

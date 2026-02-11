@@ -11,7 +11,7 @@ interface QuizData {
   answers: Answer[];
 }
 
-export const TIMER = 60 * 10;
+export const TIMER = 10;
 
 export default function QuestionsProvider({ children }: { children: React.ReactNode }) {
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -21,7 +21,7 @@ export default function QuestionsProvider({ children }: { children: React.ReactN
   const [answers, setAnswers] = useState<Answer[]>([]);
 
   useEffect(() => {
-    const loadQuizData = () => {
+    const getQuizData = () => {
       try {
         const savedData = localStorage.getItem('quiz');
         if (savedData) {
@@ -36,7 +36,7 @@ export default function QuestionsProvider({ children }: { children: React.ReactN
       }
     };
 
-    loadQuizData();
+    getQuizData();
   }, []);
 
   useEffect(() => {

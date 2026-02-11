@@ -6,11 +6,11 @@ import useQuestions from '../../../hooks/useQuestions';
 import QuizSetupPopup from '../../UI/PopUp/PopUp';
 
 export default function HeroSection() {
+  const navigate = useNavigate();
+
   const { user } = useAuth();
   const { questions } = useQuestions();
-
-  const navigate = useNavigate();
-  const isModalOpen = useBoolean();
+  const { value: isModalOpen, onTrue, onFalse } = useBoolean();
 
   const handleStartQuiz = () => {
     if (!user.status) {
@@ -18,7 +18,7 @@ export default function HeroSection() {
     } else if (questions.length > 0) {
       navigate('/quiz');
     } else {
-      isModalOpen.onTrue();
+      onTrue();
     }
   };
 
@@ -41,10 +41,10 @@ export default function HeroSection() {
           Challenge yourself with quick quizzes across various topics. Learn, compete, and have fun!
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
           <button
             onClick={handleStartQuiz}
-            className="group flex justify-center items-center gap-2 px-8 py-4 text-lg text-white font-bold rounded-xl transition-all bg-linear-to-r from-purple-500 to-pink-500 hover:shadow-2xl hover:scale-105"
+            className="group btn-primary flex justify-center items-center gap-2 px-8 py-4 text-lg"
           >
             <Play className="w-5 h-5 transition-transform group-hover:scale-110" />
             Start Quiz Now
@@ -55,7 +55,7 @@ export default function HeroSection() {
           </button>
         </div>
       </div>
-      <QuizSetupPopup isOpen={isModalOpen.value} onClose={isModalOpen.onFalse} />
+      <QuizSetupPopup isOpen={isModalOpen} onClose={onFalse} />
     </section>
   );
 }

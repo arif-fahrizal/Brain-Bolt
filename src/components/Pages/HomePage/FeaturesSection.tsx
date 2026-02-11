@@ -9,7 +9,7 @@ export default function FeaturesSection() {
 
           <div className="grid md:grid-cols-2 gap-6">
             <div className="flex gap-4">
-              <div className="flex items-center justify-center shrink-0 w-12 h-12 rounded-xl bg-purple-500/30">
+              <div className="flex justify-center items-center shrink-0 w-12 h-12 rounded-xl bg-purple-500/30">
                 <Zap className="w-6 h-6 text-purple-300" />
               </div>
               <div>
@@ -19,7 +19,7 @@ export default function FeaturesSection() {
             </div>
 
             <div className="flex gap-4">
-              <div className="flex items-center justify-center shrink-0 w-12 h-12 rounded-xl bg-blue-500/30">
+              <div className="flex justify-center items-center shrink-0 w-12 h-12 rounded-xl bg-blue-500/30">
                 <Trophy className="w-6 h-6 text-blue-300" />
               </div>
               <div>
@@ -29,7 +29,7 @@ export default function FeaturesSection() {
             </div>
 
             <div className="flex gap-4">
-              <div className="flex items-center justify-center shrink-0 w-12 h-12 rounded-xl bg-pink-500/30">
+              <div className="flex justify-center items-center shrink-0 w-12 h-12 rounded-xl bg-pink-500/30">
                 <Star className="w-6 h-6 text-pink-300" />
               </div>
               <div>
@@ -39,7 +39,7 @@ export default function FeaturesSection() {
             </div>
 
             <div className="flex gap-4">
-              <div className="flex items-center justify-center shrink-0 w-12 h-12 rounded-xl bg-green-500/30">
+              <div className="flex justify-center items-center shrink-0 w-12 h-12 rounded-xl bg-green-500/30">
                 <Award className="w-6 h-6 text-green-300" />
               </div>
               <div>

@@ -7,13 +7,13 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   const [user, setUser] = useState<User>({} as User);
 
   useEffect(() => {
-    const loadUser = () => {
+    const getUser = () => {
       const users = getStoredUsers();
       const currentUser = users.find(u => u.status === true) || null;
       setUser(currentUser || ({} as User));
     };
 
-    loadUser();
+    getUser();
   }, []);
 
   useEffect(() => {

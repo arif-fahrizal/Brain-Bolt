@@ -5,15 +5,16 @@ import { signOut } from '../../services/auth.service';
 import type { User } from '../../types/auth.types';
 
 export default function Header() {
-  const { user, setUser } = useAuth();
-
   const navigate = useNavigate();
+
+  const { user, setUser } = useAuth();
 
   const handleSignOut = () => {
     navigate('/sign-in');
     setUser({} as User);
     signOut();
   };
+
   return (
     <header className="container fixed top-0 left-0 right-0 mx-auto px-4 py-6 z-99">
       <div className="flex justify-between items-center">
@@ -27,10 +28,7 @@ export default function Header() {
           {user.status ? (
             <>
               <span className="">{user.username}</span>
-              <button
-                onClick={handleSignOut}
-                className="px-6 py-2 font-semibold rounded-lg transition-all bg-linear-to-r from-purple-500 to-pink-500 hover:shadow-lg hover:scale-105"
-              >
+              <button onClick={handleSignOut} className="btn-primary px-6 py-2">
                 Logout
               </button>
             </>
@@ -39,10 +37,7 @@ export default function Header() {
               <Link to="/sign-in" className="px-4 py-2 transition-colors hover:text-purple-300">
                 Login
               </Link>
-              <Link
-                to="/sign-up"
-                className="px-6 py-2 font-semibold rounded-lg transition-all bg-linear-to-r from-purple-500 to-pink-500 hover:shadow-lg hover:scale-105"
-              >
+              <Link to="/sign-up" className="btn-primary px-6 py-2">
                 Sign Up
               </Link>
             </>

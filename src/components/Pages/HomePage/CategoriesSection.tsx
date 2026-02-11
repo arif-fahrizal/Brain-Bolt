@@ -8,12 +8,12 @@ import { CATEGORY_MAPPINGS } from '../../../utils/categories';
 import QuizSetupPopup from '../../UI/PopUp/PopUp';
 
 export default function CategoriesSection() {
+  const navigate = useNavigate();
+  const [selectedCategory, setSelectedCategory] = useState<number>(1);
+
   const { user } = useAuth();
   const { questions, categories } = useQuestions();
-  const [selectedCategory, setSelectedCategory] = useState<string | number>('');
-
-  const navigate = useNavigate();
-  const isModalOpen = useBoolean();
+  const { value: isModalOpen, onTrue, onFalse } = useBoolean();
 
   const handleStartQuiz = () => {
     if (!user.status) {
@@ -21,13 +21,13 @@ export default function CategoriesSection() {
     } else if (questions.length > 0) {
       navigate('/quiz');
     } else {
-      isModalOpen.onTrue();
+      onTrue();
     }
   };
 
   return (
     <section className="container mx-auto px-4 py-16">
-      <div className="text-center mb-12">
+      <div className="mb-12 text-center">
         <h3 className="mb-4 text-4xl text-white font-bold">Choose Your Category</h3>
         <p className="text-lg text-gray-300">Pick a topic and start testing your knowledge</p>
       </div>
@@ -73,7 +73,12 @@ export default function CategoriesSection() {
             </button>
           </div>
         ))}
-        <QuizSetupPopup isOpen={isModalOpen.value} onClose={isModalOpen.onFalse} />
+        <QuizSetupPopup
+          key={selectedCategory}
+          initialCategory={selectedCategory}
+          isOpen={isModalOpen}
+          onClose={onFalse}
+        />
       </div>
     </section>
   );

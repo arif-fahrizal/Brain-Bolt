@@ -11,7 +11,7 @@ export default function ScoresPage() {
   const quizResults = useMemo(() => {
     const newestResult = user?.quizHistory?.at(-1);
 
-    const totalQuestions = newestResult?.answers?.length || 0;
+    const totalQuestions = newestResult?.totalQuestions || 0;
     const correctAnswers =
       newestResult?.answers?.filter(answer => answer.correctAnswer === answer.selectedAnswer).length || 0;
     const wrongAnswers = totalQuestions - correctAnswers;
@@ -25,10 +25,7 @@ export default function ScoresPage() {
       <div className="max-w-2xl w-full p-8 md:p-12 rounded-3xl border border-white/20 bg-white/10 backdrop-blur-lg shadow-2xl">
         <ScoreHeader accuracy={quizResults.accuracy} />
         <ScoreDetails quizResult={quizResults} />
-        <Link
-          to="/"
-          className="flex items-center justify-center gap-2 py-4 text-lg text-white font-bold rounded-xl transition-all bg-linear-to-r from-purple-500 to-pink-500 hover:shadow-2xl hover:scale-105"
-        >
+        <Link to="/" className="btn-primary flex items-center justify-center gap-2 py-4 text-lg">
           <Home className="w-5 h-5" />
           Home
         </Link>

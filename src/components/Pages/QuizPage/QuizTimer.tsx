@@ -30,12 +30,11 @@ export default function QuizTimer({ timer, setTimer }: QuizTimerProps) {
           <Clock className={`w-6 h-6 ${timer <= 10 ? 'text-red-400 animate-pulse' : 'text-blue-400'}`} />
           <span className="text-white font-semibold">Time Remaining</span>
         </div>
-        <span className={`text-2xl md:text-3xl font-bold ${timer <= 10 ? 'text-red-400' : 'text-white'}`}>
+        <span className={`text-2xl md:text-3xl ${timer <= 10 ? 'text-red-400' : 'text-white'} font-bold`}>
           {minutes}m {seconds}s
         </span>
       </div>
 
-      {/* Timer Progress Bar */}
       <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
         <div
           className={`h-full transition-all duration-1000 ${

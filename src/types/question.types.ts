@@ -13,8 +13,9 @@ export interface Answer {
 }
 
 export interface QuizHistory {
+  answers: Answer[];
   category: string;
   date: string;
   difficulty: string;
-  answers: Answer[];
+  totalQuestions: number;
 }

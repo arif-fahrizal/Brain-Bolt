@@ -10,8 +10,8 @@ export default function HomePage() {
     <div className="min-h-screen bg-linear-to-br from-slate-900 via-purple-900 to-slate-900">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute w-80 h-80 -top-40 -right-40 rounded-full animate-blob mix-blend-multiply filter blur-xl bg-purple-500 opacity-20" />
-        <div className="absolute w-80 h-80 -bottom-40 -left-40 rounded-full delay-200 animate-blob mix-blend-multiply filter blur-xl bg-blue-500 opacity-20" />
-        <div className="absolute w-80 h-80 top-1/2 left-1/2 rounded-full delay-300 animate-blob mix-blend-multiply filter blur-xl bg-pink-500 opacity-20" />
+        <div className="absolute w-80 h-80 -bottom-40 -left-40 rounded-full animate-blob delay-200 mix-blend-multiply filter blur-xl bg-blue-500 opacity-20" />
+        <div className="absolute w-80 h-80 top-1/2 left-1/2 rounded-full animate-blob delay-300 mix-blend-multiply filter blur-xl bg-pink-500 opacity-20" />
       </div>
 
       <div className="relative z-10">

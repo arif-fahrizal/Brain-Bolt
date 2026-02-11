@@ -4,7 +4,7 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-export default function Select({ label, options, onChange }: SelectProps) {
+export default function Select({ label, options, onChange, ...selectOptions }: SelectProps) {
   return (
     <div className="text-sm text-left text-white">
       <label htmlFor={label} className="pl-2.5">
@@ -14,6 +14,7 @@ export default function Select({ label, options, onChange }: SelectProps) {
         id={label}
         onChange={onChange}
         className="w-full mt-1 px-5 py-2.5 rounded-2xl border border-white/20 outline-none transition-all bg-white/10 backdrop-blur-md hover:bg-white/15"
+        {...selectOptions}
       >
         <option value="" className="text-gray-400" selected disabled>
           {label}

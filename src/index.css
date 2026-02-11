@@ -24,7 +24,7 @@
   }
 
   .btn-primary {
-    @apply py-2 px-4 text-white rounded-lg bg-linear-to-r from-purple-500 to-pink-500;
+    @apply text-white rounded-lg border-none outline-none transition-all bg-linear-to-r from-purple-500 to-pink-500 hover:shadow-lg hover:scale-105;
   }
 }
 

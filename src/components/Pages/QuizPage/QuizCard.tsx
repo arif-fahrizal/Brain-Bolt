@@ -27,10 +27,10 @@ const QuizCard = ({ questions, currentQuestion, setCurrentQuestion, setSelectedA
   return (
     <div className="min-w-75 max-w-250 w-full mb-2.5 p-5 rounded-3xl border border-white/20 bg-white/10 backdrop-blur-lg shadow-2xl">
       <div className="mb-8">
-        <div className="inline-block px-4 py-2 bg-purple-500/20 rounded-full border border-purple-500/30 mb-4">
-          <span className="text-purple-300 text-sm font-semibold">Question {currentQuestion + 1}</span>
+        <div className="inline-block mb-4 px-4 py-2 bg-purple-500/20 rounded-full border border-purple-500/30">
+          <span className="text-sm text-purple-300 font-semibold">Question {currentQuestion + 1}</span>
         </div>
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight">{question?.question}</h2>
+        <h2 className="text-2xl md:text-3xl lg:text-4xl text-white font-bold leading-tight">{question?.question}</h2>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-white">
         {options?.map((option, index) => (
@@ -47,7 +47,7 @@ const QuizCard = ({ questions, currentQuestion, setCurrentQuestion, setSelectedA
         ))}
       </div>
       <div className="mt-6 text-center">
-        <p className="text-gray-400 text-sm">Select an answer to continue. You cannot go back!</p>
+        <p className="text-sm text-gray-400">Select an answer to continue. You cannot go back!</p>
       </div>
     </div>
   );

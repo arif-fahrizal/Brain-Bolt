@@ -26,15 +26,16 @@ export default function QuizPage() {
   }, [setQuestions, setCurrentQuestion, setTimer, setAnswers]);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user || !user.status || questions.length === 0) return;
 
     const question = questions[0];
 
     const quizHistory: QuizHistory = {
+      answers: [...answers],
       category: question?.category,
       date: new Date().toISOString(),
       difficulty: question?.difficulty,
-      answers: [...answers],
+      totalQuestions: questions.length,
     };
 
     const updateUser: User = {
