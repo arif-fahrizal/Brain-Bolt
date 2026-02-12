@@ -2,7 +2,7 @@ import { Award, Star, Trophy, Zap } from 'lucide-react';
 
 export default function FeaturesSection() {
   return (
-    <section className="container mx-auto px-4 py-16">
+    <section className="px-4 py-16">
       <div className="max-w-4xl mx-auto">
         <div className="p-8 md:p-12 rounded-3xl border border-white/20 bg-linear-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-md">
           <h3 className="mb-8 text-3xl text-center text-white font-bold">Why Choose BrainBolt?</h3>

@@ -14,7 +14,7 @@ export default function HomePage() {
         <div className="absolute w-80 h-80 top-1/2 left-1/2 rounded-full animate-blob delay-300 mix-blend-multiply filter blur-xl bg-pink-500 opacity-20" />
       </div>
 
-      <div className="relative z-10">
+      <div className="container relative mx-auto z-10">
         <Header />
         <HeroSection />
         <StatsSection />

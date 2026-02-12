@@ -11,7 +11,7 @@ interface QuizData {
   answers: Answer[];
 }
 
-export const TIMER = 10;
+export const TIMER = 10 * 60;
 
 export default function QuestionsProvider({ children }: { children: React.ReactNode }) {
   const [questions, setQuestions] = useState<Question[]>([]);

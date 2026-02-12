@@ -1,4 +1,3 @@
-import { Zap } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { signOut } from '../../services/auth.service';
@@ -14,13 +13,12 @@ export default function Header() {
     setUser({} as User);
     signOut();
   };
-
   return (
     <header className="container fixed top-0 left-0 right-0 mx-auto px-4 py-6 z-99">
       <div className="flex justify-between items-center">
         <Link to="/" className="flex items-center gap-2">
-          <div className="flex justify-center items-center w-10 h-10 rounded-lg bg-linear-to-br from-purple-500 to-pink-500">
-            <Zap className="w-6 h-6 text-white" />
+          <div className="flex justify-center items-center w-11 h-11 rounded-lg bg-linear-to-br from-purple-500 to-pink-500 overflow-hidden">
+            <img src="./images/brain-bolt-white.png" alt="" className="w-full h-full object-cover" />
           </div>
           <h1 className="text-2xl text-white font-bold">BrainBolt</h1>
         </Link>

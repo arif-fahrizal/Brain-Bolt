@@ -23,7 +23,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="container mx-auto px-4 py-16 text-center">
+    <section className="px-4 py-16 text-center">
       <div className="max-w-4xl mx-auto">
         <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 text-white rounded-full bg-white/10 backdrop-blur-sm">
           <Trophy className="w-5 h-5 text-yellow-400" />

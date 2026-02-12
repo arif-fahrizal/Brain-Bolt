@@ -51,7 +51,7 @@ export default function SignUpPage() {
           placeholder="************"
           onChange={({ target }) => setConfirmPassword(target.value)}
         />
-        <button className="btn-primary w-full mt-10">Sign Up</button>
+        <button className="btn-primary w-full mt-10 px-4 py-2">Sign Up</button>
         <p className="text-center">
           Already have an account?{' '}
           <Link to="/sign-in" className="text-purple-400 underline cursor-pointer">

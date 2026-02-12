@@ -51,7 +51,7 @@ export default function SignInPage() {
           value={password}
           onChange={({ target }) => setPassword(target.value)}
         />
-        <button className="btn-primary w-full mt-10">Sign In</button>
+        <button className="btn-primary w-full mt-10 px-4 py-2">Sign In</button>
         <p className="text-center">
           Don't have an account?{' '}
           <Link to="/sign-up" className="text-purple-400 underline cursor-pointer">
