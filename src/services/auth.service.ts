@@ -2,7 +2,7 @@ import type { SignUpUser, User } from '../types/auth.types';
 import { findUserByUsername, updateUserStatus } from '../utils/auth.utils';
 
 const STORAGE_KEY = 'user';
-const MIN_USERNAME_LENGTH = 8;
+const MIN_USERNAME_LENGTH = 6;
 const MIN_PASSWORD_LENGTH = 8;
 
 const getStoredUser = (): User[] | null => {
@@ -31,10 +31,6 @@ const setStoredUser = (user: User[] | null): void => {
 export const signIn = (credentials: Pick<User, 'username' | 'password'>) => {
   try {
     const { username, password } = credentials;
-
-    if (!username?.trim() || !password?.trim()) {
-      return { status: false, message: 'Username and password are required' };
-    }
 
     const user = findUserByUsername(username);
 
@@ -76,7 +72,7 @@ export const signUp = (user: SignUpUser) => {
     }
 
     if (password !== confirmPassword) {
-      return { status: false, message: 'Passwords do not match' };
+      return { status: false, message: 'Passwords & Confirm Password do not match' };
     }
 
     if (findUserByUsername(username)) {

@@ -2,7 +2,13 @@ import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 
-export default function AuthLayout({ children }: { children: React.ReactNode }) {
+interface AuthLayoutProps {
+  title?: string;
+  error?: string;
+  children: React.ReactNode;
+}
+
+export default function AuthLayout({ title, error, children }: AuthLayoutProps) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -26,6 +32,8 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         className="fixed w-full h-full mix-blend-multiply object-cover -z-10"
       />
       <div className="w-120 h-3/4 px-10 py-20 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm">
+        {title && <h1 className="mb-10 text-3xl font-semibold text-center">{title}</h1>}
+        {error && <p className="mb-2.5 text-sm text-center text-red-500">{error}</p>}
         {children}
       </div>
     </div>

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 import useBoolean from '../../../hooks/useBoolean';
 import useQuestions from '../../../hooks/useQuestions';
-import { CATEGORY_MAPPINGS } from '../../../utils/categories';
+import { CATEGORY_MAPPINGS } from '../../../utils/categories.utils';
 import QuizSetupPopup from '../../UI/PopUp/PopUp';
 
 export default function CategoriesSection() {

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useQuestions from '../../../hooks/useQuestions';
 import { fetchAPI } from '../../../lib/api';
 import type { Category } from '../../../types/category.types';
-import { difficulty } from '../../../utils/difficulty';
+import { difficulty } from '../../../utils/difficulty.utils';
 import Input from '../Inputs/Input';
 import Select from '../Inputs/Select';
 

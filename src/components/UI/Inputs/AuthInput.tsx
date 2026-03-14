@@ -3,20 +3,21 @@ import useBoolean from '../../../hooks/useBoolean';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
+  error?: string;
 }
 
-export default function AuthInput({ label, type, ...InputOptions }: InputProps) {
+export default function AuthInput({ label, type, error, ...InputOptions }: InputProps) {
   const showPassword = useBoolean();
   return (
     <div className="group w-full">
-      <label htmlFor={label} className="text-sm tracking-wide">
+      <label htmlFor={label} className={`text-sm tracking-wide ${error && 'text-red-500'}`}>
         {label}
       </label>
       <div className="relative">
         <input
           id={label}
           type={type === 'password' && showPassword.value ? 'text' : type}
-          className="w-full py-3 text-white border-b-2 border-gray-300 outline-none duration-300 group-focus-within:border-violet-600"
+          className={`w-full py-3 text-white border-b-2 outline-none duration-300 ${error ? ' border-red-500 group-focus-within:border-red-500' : ' border-gray-300 group-focus-within:border-violet-600'}`}
           autoComplete="off"
           {...InputOptions}
         />
@@ -24,7 +25,7 @@ export default function AuthInput({ label, type, ...InputOptions }: InputProps) 
         {type === 'password' && (
           <button
             type="button"
-            className="absolute top-1/2 right-0 p-1 text-gray-500 -translate-1/2 hover:text-gray-700 focus:outline-none"
+            className={`absolute top-1/2 right-0 p-1 ${error ? 'text-red-500 hover:text-red-700' : 'text-gray-500 hover:text-gray-700'} -translate-1/2 focus:outline-none`}
             onClick={showPassword.toggle}
             aria-label={showPassword.value ? 'Hide password' : 'Show password'}
             tabIndex={-1}
@@ -33,6 +34,7 @@ export default function AuthInput({ label, type, ...InputOptions }: InputProps) 
           </button>
         )}
       </div>
+      {error && <p className="mt-1 text-sm text-red-500 italic">{error}</p>}
     </div>
   );
 }
