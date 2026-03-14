@@ -1,9 +1,11 @@
+import bcrypt from 'bcryptjs';
 import type { SignUpUser, User } from '../types/auth.types';
 import { findUserByUsername, updateUserStatus } from '../utils/auth.utils';
 
 const STORAGE_KEY = 'user';
 const MIN_USERNAME_LENGTH = 6;
 const MIN_PASSWORD_LENGTH = 8;
+const BCRYPT_SALT_ROUNDS = 10;
 
 const getStoredUser = (): User[] | null => {
   try {
@@ -35,10 +37,12 @@ export const signIn = (credentials: Pick<User, 'username' | 'password'>) => {
     const user = findUserByUsername(username);
 
     if (!user) {
-      return { status: false, message: 'Invalid username or password' };
+      return { status: false, message: 'Invalid username' };
     }
 
-    if (user.password !== password) {
+    const isPasswordValid = bcrypt.compareSync(password, user.password);
+
+    if (!isPasswordValid) {
       return { status: false, message: 'Invalid password' };
     }
 
@@ -82,8 +86,10 @@ export const signUp = (user: SignUpUser) => {
       };
     }
 
+    const hashedPassword = bcrypt.hashSync(password, BCRYPT_SALT_ROUNDS);
+
     const users = getStoredUser() || [];
-    const updatedUser = [...users, { username, password, status: false }];
+    const updatedUser = [...users, { username, password: hashedPassword, status: false }];
 
     setStoredUser(updatedUser);
 
