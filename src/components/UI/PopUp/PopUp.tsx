@@ -75,17 +75,14 @@ export default function QuizSetupPopup({ initialCategory = 1, isOpen, onClose }:
               <Select
                 label="Select Category"
                 options={mappedCategories || []}
-                onChange={({ target }) => setSelectedCategory(Number(target.value))}
-                value={selectedCategory}
-                required
+                onChange={value => setSelectedCategory(Number(value))}
               />
               <Select
                 label="Select Difficulty"
                 options={difficulty}
-                onChange={({ target }) => setSelectedDifficulty(target.value)}
-                required
+                onChange={value => setSelectedDifficulty(String(value))}
               />
-              <button className="w-full p-2.5 rounded-full duration-300 bg-white hover:bg-gray-200">
+              <button className="w-full p-2.5 text-white rounded-full bg-linear-to-r from-purple-500 to-pink-500">
                 Generate & Start Quiz
               </button>
             </form>
