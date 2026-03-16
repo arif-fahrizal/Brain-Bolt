@@ -14,22 +14,38 @@ interface QuizSetupPopupProps {
   onClose: () => void;
 }
 
-export default function QuizSetupPopup({ initialCategory = 1, isOpen, onClose }: QuizSetupPopupProps) {
+interface FormParams {
+  amount: number;
+  category: number;
+  difficulty: string;
+}
+
+export default function QuizSetupPopup({ initialCategory = 0, isOpen, onClose }: QuizSetupPopupProps) {
   const navigate = useNavigate();
-  const [questionCount, setQuestionCount] = useState(10);
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
-  const [selectedDifficulty, setSelectedDifficulty] = useState('');
+  const [params, setParams] = useState<FormParams>({
+    amount: 10,
+    category: initialCategory,
+    difficulty: '',
+  });
 
   const { categories, setQuestions } = useQuestions();
 
   const mappedCategories = categories.map((category: Category) => ({ label: category.name, value: category.id }));
+  const initialValue = categories.find((category: Category) => category.id === initialCategory)?.name;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const data = await fetchAPI(
-        `/api.php?amount=${questionCount}&category=${selectedCategory}&difficulty=${selectedDifficulty}&type=multiple`
-      );
+      const searchParams = new URLSearchParams();
+      searchParams.set('type', 'multiple');
+
+      (Object.keys(params) as Array<keyof FormParams>).forEach(key => {
+        const value = params[key];
+        if (value === '' || value === 0) return;
+        searchParams.set(key, String(value));
+      });
+
+      const data = await fetchAPI(`/api.php?${searchParams.toString()}`);
       setQuestions(data.results);
     } catch (error) {
       console.error(error);
@@ -69,22 +85,26 @@ export default function QuizSetupPopup({ initialCategory = 1, isOpen, onClose }:
                 type="number"
                 min={10}
                 defaultValue={10}
-                onChange={({ target }) => setQuestionCount(Number(target.value))}
+                onChange={({ target }) => setParams(prev => ({ ...prev, amount: Number(target.value) }))}
                 required
               />
               <Select
                 label="Select Category"
+                initialValue={initialValue}
                 options={mappedCategories || []}
-                onChange={value => setSelectedCategory(Number(value))}
+                onChange={value => setParams(prev => ({ ...prev, category: Number(value) }))}
               />
               <Select
                 label="Select Difficulty"
                 options={difficulty}
-                onChange={value => setSelectedDifficulty(String(value))}
+                onChange={value => setParams(prev => ({ ...prev, difficulty: String(value) }))}
               />
               <button className="w-full p-2.5 text-white rounded-full bg-linear-to-r from-purple-500 to-pink-500">
                 Generate & Start Quiz
               </button>
+              <p className="text-xs text-gray-300 italic">
+                If you don&apos;t select a category & difficulty, a random one will be selected
+              </p>
             </form>
           </div>
         </div>

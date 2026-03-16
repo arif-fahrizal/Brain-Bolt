@@ -3,12 +3,13 @@ import useBoolean from '../../../hooks/useBoolean';
 
 interface SelectProps {
   label: string;
+  initialValue?: string;
   options: { value: string | number; label: string }[];
   onChange?: (value?: string | number) => void;
 }
 
-export default function Select({ label, options, onChange }: SelectProps) {
-  const [selected, setSelected] = useState<string>();
+export default function Select({ label, initialValue = '', options, onChange }: SelectProps) {
+  const [selected, setSelected] = useState<string>(initialValue);
 
   const isOpen = useBoolean();
 
