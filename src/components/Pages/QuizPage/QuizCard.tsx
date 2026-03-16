@@ -21,7 +21,7 @@ const QuizCard = ({ questions, currentQuestion, setCurrentQuestion, setSelectedA
     const selectedAnswer = { correctAnswer: question?.correct_answer, selectedAnswer: answer };
 
     setSelectedAnswer(prev => [...prev, selectedAnswer]);
-    setCurrentQuestion(currentQuestion + 1);
+    setCurrentQuestion(prev => prev + 1);
   };
 
   return (

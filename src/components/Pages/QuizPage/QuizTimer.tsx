@@ -41,7 +41,7 @@ export default function QuizTimer({ timer, setTimer }: QuizTimerProps) {
             timer <= 10 ? 'bg-linear-to-r from-red-500 to-orange-500' : 'bg-linear-to-r from-blue-500 to-cyan-500'
           }`}
           style={{ width: `${timePercentage}%` }}
-        ></div>
+        />
       </div>
 
       {timer <= 10 && (

@@ -11,13 +11,13 @@ interface QuizData {
   answers: Answer[];
 }
 
-export const TIMER = 10 * 60;
+export const BASE_TIMER = 30;
 
 export default function QuestionsProvider({ children }: { children: React.ReactNode }) {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [timer, setTimer] = useState<number>(TIMER);
+  const [timer, setTimer] = useState<number>(BASE_TIMER);
   const [answers, setAnswers] = useState<Answer[]>([]);
 
   useEffect(() => {
