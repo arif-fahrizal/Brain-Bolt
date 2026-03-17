@@ -19,7 +19,7 @@ export default function ScoreDetails({ quizResult }: ScoreDetailsProps) {
     <div className="space-y-4 mb-8">
       <div
         aria-label="Correct Answers"
-        className="flex justify-between items-center p-5 rounded-2xl border border-green-500/30 bg-green-500/10"
+        className="flex justify-between items-center gap-4 p-2.5 md:p-5 rounded-2xl border border-green-500/30 bg-green-500/10"
       >
         <div className="flex items-center gap-4">
           <div className="flex justify-center items-center w-12 h-12 rounded-xl bg-green-500/20">
@@ -32,7 +32,7 @@ export default function ScoreDetails({ quizResult }: ScoreDetailsProps) {
 
       <div
         aria-label="Wrong Answers"
-        className="flex justify-between items-center p-5 rounded-2xl border border-red-500/30 bg-red-500/10"
+        className="flex justify-between items-center gap-4 p-2.5 md:p-5 rounded-2xl border border-red-500/30 bg-red-500/10"
       >
         <div className="flex items-center gap-4">
           <div className="flex justify-center items-center w-12 h-12 rounded-xl bg-red-500/20">
@@ -45,7 +45,7 @@ export default function ScoreDetails({ quizResult }: ScoreDetailsProps) {
 
       <div
         aria-label="Total Questions"
-        className="flex justify-between items-center p-5 rounded-2xl border border-blue-500/30 bg-blue-500/10"
+        className="flex justify-between items-center gap-4 p-2.5 md:p-5 rounded-2xl border border-blue-500/30 bg-blue-500/10"
       >
         <div className="flex items-center gap-4">
           <div className="flex justify-center items-center w-12 h-12 rounded-xl bg-blue-500/20">
@@ -58,7 +58,7 @@ export default function ScoreDetails({ quizResult }: ScoreDetailsProps) {
 
       <div
         aria-label="Final Score"
-        className={`flex items-center justify-between p-5 bg-linear-to-r ${gradient} rounded-2xl shadow-lg`}
+        className={`flex justify-between items-center gap-4 p-2.5 md:p-5 bg-linear-to-r ${gradient} rounded-2xl shadow-lg`}
       >
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">

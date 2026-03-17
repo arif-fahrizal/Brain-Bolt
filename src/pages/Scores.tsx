@@ -22,7 +22,7 @@ export default function ScoresPage() {
 
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen p-4 bg-linear-to-br from-slate-900 via-purple-900 to-slate-900">
-      <div className="max-w-2xl w-full p-8 md:p-12 rounded-3xl border border-white/20 bg-white/10 backdrop-blur-lg shadow-2xl">
+      <div className="max-w-2xl w-full p-4 md:p-12 rounded-3xl border border-white/20 bg-white/10 backdrop-blur-lg shadow-2xl">
         <ScoreHeader accuracy={quizResults.accuracy} />
         <ScoreDetails quizResult={quizResults} />
         <Link to="/" className="btn-primary flex items-center justify-center gap-2 py-4 text-lg">

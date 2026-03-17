@@ -11,8 +11,8 @@ export default function ScoreHeader({ accuracy }: { accuracy: number }) {
         <Trophy className="w-12 h-12 text-white" />
       </div>
 
-      <h1 className="mb-2 text-4xl md:text-5xl text-white font-bold">{text}</h1>
-      <p className="text-lg text-gray-300">You've completed the quiz</p>
+      <h1 className="mb-2 text-2xl md:text-5xl text-white font-bold">{text}</h1>
+      <p className="text-base md:text-lg text-gray-300">You've completed the quiz</p>
     </div>
   );
 }
