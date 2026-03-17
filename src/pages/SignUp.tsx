@@ -63,7 +63,7 @@ export default function SignUpPage() {
           error={errors.confirmPassword?.message}
         />
         <button className="btn-primary w-full mt-10 px-4 py-2">Sign Up</button>
-        <p className="text-center">
+        <p className="text-sm md:text-base text-center">
           Already have an account?{' '}
           <Link to="/sign-in" className="text-purple-400 underline cursor-pointer">
             Sign In
