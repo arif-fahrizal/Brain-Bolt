@@ -102,7 +102,7 @@ export default function QuizSetupPopup({ initialCategory = 0, isOpen, onClose }:
               <button className="w-full p-2.5 text-white rounded-full bg-linear-to-r from-purple-500 to-pink-500">
                 Generate & Start Quiz
               </button>
-              <p className="text-xs text-gray-300 italic">
+              <p className="text-xs text-center text-gray-300 italic">
                 If you don&apos;t select a category & difficulty, a random one will be selected
               </p>
             </form>

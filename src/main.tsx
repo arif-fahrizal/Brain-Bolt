@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+import { lazy, StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import AuthProvider from './contexts/Auth/AuthProvider';
@@ -7,8 +7,8 @@ import './index.css';
 import HomePage from './pages/Home';
 import QuizPage from './pages/Quiz';
 import ScoresPage from './pages/Scores';
-import SignInPage from './pages/SignIn';
-import SignUpPage from './pages/SignUp';
+const SignInPage = lazy(() => import('./pages/SignIn'));
+const SignUpPage = lazy(() => import('./pages/SignUp'));
 
 const router = createBrowserRouter([
   {
