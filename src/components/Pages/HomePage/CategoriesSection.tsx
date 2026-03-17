@@ -33,42 +33,45 @@ export default function CategoriesSection() {
         <p className="text-lg text-gray-300">Pick a topic and start testing your knowledge</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3.5 lg:gap-5 max-w-6xl mx-auto">
         {categories.length === 0 && Array.from({ length: 3 }).map((_, index) => <CategoryLoading key={index} />)}
         {categories.map(category => (
           <div
             key={category.id}
             onClick={() => setSelectedCategory(category.id)}
-            className={`group p-6 rounded-2xl border-2 transition-all bg-white/10 backdrop-blur-md cursor-pointer hover:scale-105 hover:shadow-2xl ${
+            className={`group px-2.5 py-4 md:p-6 rounded-2xl border-2 transition-all bg-white/10 backdrop-blur-md cursor-pointer hover:scale-105 hover:shadow-2xl ${
               selectedCategory === category.id
                 ? 'border-purple-500 bg-white/20'
                 : 'border-white/20 hover:border-white/40'
             }`}
           >
-            <div className="flex items-start justify-between mb-4">
+            <div className="flex items-start justify-between mb-2 md:mb-4">
               <div
-                className={`flex justify-center items-center w-16 h-16 text-3xl ${CATEGORY_MAPPINGS[category.name].color} rounded-2xl transition-all transform bg-linear-to-br group-hover:scale-110 group-hover:rotate-6`}
+                className={`flex justify-center items-center w-12 h-12 md:w-16 md:h-16 text-3xl ${CATEGORY_MAPPINGS[category.name].color} rounded-2xl transition-all transform bg-linear-to-br group-hover:scale-110 group-hover:rotate-6`}
               >
                 {CATEGORY_MAPPINGS[category.name].icon}
               </div>
-              <div className="flex items-center gap-1 px-3 py-1 text-xs text-white rounded-full bg-white/10">
+              <div className="flex items-center gap-1 px-2 py-0.5 md:px-3 md:py-1 text-xs text-white rounded-full bg-white/10">
                 <CircleStar className="w-4 h-4 text-yellow-400" />
                 <span>{CATEGORY_MAPPINGS[category.name].rating}</span>
               </div>
             </div>
 
-            <h4 className="mb-2 text-xl text-white font-bold">{category.name}</h4>
+            <h4 title={category.name} className="mb-2 text-sm md:text-xl text-white font-bold line-clamp-1">
+              {category.name}
+            </h4>
 
-            <div className="flex justify-between items-center gap-5 mb-4 text-sm text-gray-400">
-              <span title={CATEGORY_MAPPINGS[category.name].description} className="line-clamp-1">
-                {CATEGORY_MAPPINGS[category.name].description}
-              </span>
-            </div>
+            <span
+              title={CATEGORY_MAPPINGS[category.name].description}
+              className="md:mb-4 text-xs md:text-sm text-gray-400 line-clamp-1"
+            >
+              {CATEGORY_MAPPINGS[category.name].description}
+            </span>
 
             <button
               type="button"
               onClick={handleStartQuiz}
-              className={`flex justify-center items-center gap-2 w-full mt-auto py-3 ${CATEGORY_MAPPINGS[category.name].color} text-white font-semibold rounded-xl transition-all transform translate-y-2 bg-linear-to-r opacity-0 group-hover:opacity-100 group-hover:translate-y-0`}
+              className={`flex justify-center items-center gap-2 w-full mt-auto py-1.5 md:py-3 ${CATEGORY_MAPPINGS[category.name].color} text-xs md:text-base text-white font-semibold rounded-xl transition-all transform translate-y-2 bg-linear-to-r md:opacity-0 group-hover:opacity-100 group-hover:translate-y-0`}
             >
               <Play className="w-4 h-4" />
               Start Quiz
