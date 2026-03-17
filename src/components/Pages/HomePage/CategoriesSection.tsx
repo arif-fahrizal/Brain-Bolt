@@ -34,7 +34,7 @@ export default function CategoriesSection() {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3.5 lg:gap-5 max-w-6xl mx-auto">
-        {categories.length === 0 && Array.from({ length: 3 }).map((_, index) => <CategoryLoading key={index} />)}
+        {categories.length === 0 && Array.from({ length: 4 }).map((_, index) => <CategoryLoading key={index} />)}
         {categories.map(category => (
           <div
             key={category.id}

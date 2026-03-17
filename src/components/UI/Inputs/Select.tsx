@@ -36,7 +36,7 @@ export default function Select({ label, initialValue = '', options, onChange }: 
       <Activity mode={isOpen.value ? 'visible' : 'hidden'}>
         <ul
           id={label}
-          className="absolute flex flex-col max-h-52 w-full h-fit top-[110%] left-0 p-2.5 text-white rounded-2xl border border-white/20 bg-white/15 backdrop-blur-sm overflow-y-auto scrollbar-select z-10"
+          className="absolute flex flex-col max-h-52 w-full h-fit top-[110%] left-0 p-2.5 text-white rounded-2xl border border-white/20 backdrop-blur-xs overflow-y-auto scrollbar-select z-10"
         >
           {options.map(option => (
             <li
