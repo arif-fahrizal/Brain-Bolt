@@ -5,6 +5,7 @@ import useAuth from '../../../hooks/useAuth';
 import useBoolean from '../../../hooks/useBoolean';
 import useQuestions from '../../../hooks/useQuestions';
 import { CATEGORY_MAPPINGS } from '../../../utils/categories.utils';
+import CategoryLoading from '../../Loading/CategoryLoading';
 import QuizSetupPopup from '../../UI/PopUp/PopUp';
 
 export default function CategoriesSection() {
@@ -33,6 +34,7 @@ export default function CategoriesSection() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        {categories.length === 0 && Array.from({ length: 3 }).map((_, index) => <CategoryLoading key={index} />)}
         {categories.map(category => (
           <div
             key={category.id}
