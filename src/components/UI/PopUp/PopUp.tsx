@@ -63,19 +63,19 @@ export default function QuizSetupPopup({ initialCategory = 0, isOpen, onClose }:
           <div className="absolute w-32 h-32 -top-6 -right-6 rounded-full bg-purple-500/30 blur-2xl" />
           <div className="absolute w-32 h-32 -bottom-6 -left-6 rounded-full bg-pink-500/30 blur-2xl" />
 
-          <div className="p-8 md:p-12 rounded-3xl border border-white/20 bg-linear-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-md shadow-2xl">
-            <div className="flex items-center justify-between mb-8">
+          <div className="p-4 md:p-12 rounded-3xl border border-white/20 bg-linear-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-md shadow-2xl">
+            <div className="flex justify-between items-center mb-8 text-white">
               <div className="flex items-center gap-3">
                 <div className="p-2 rounded-lg bg-white/10">
-                  <Settings className="w-6 h-6 text-white" />
+                  <Settings className="w-6 h-6" />
                 </div>
-                <div>
-                  <h2 className="text-2xl font-bold text-white">Create Your Quiz</h2>
-                  <p className="text-white/70">Customize your challenge</p>
+                <div className="text-left">
+                  <h2 className="text-base sm:text-2xl font-bold">Create Your Quiz</h2>
+                  <p className="text-xs sm:text-base text-white/70">Customize your challenge</p>
                 </div>
               </div>
               <button onClick={onClose} className="p-2 rounded-lg transition-colors hover:bg-white/10">
-                <X className="w-6 h-6 text-white" />
+                <X className="w-6 h-6" />
               </button>
             </div>
 
