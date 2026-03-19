@@ -5,6 +5,7 @@ import useQuestions from '../../../hooks/useQuestions';
 import { fetchAPI } from '../../../lib/api';
 import type { Category } from '../../../types/category.types';
 import { DIFFICULTY_OPTIONS } from '../../../utils/difficulty.utils';
+import { stripCategoryPrefix } from '../../../utils/stripCategoryPrefix.utils';
 import Input from '../Inputs/Input';
 import Select from '../Inputs/Select';
 
@@ -30,7 +31,10 @@ export default function QuizSetupPopup({ initialCategory = 0, isOpen, onClose }:
 
   const { categories, setQuestions } = useQuestions();
 
-  const mappedCategories = categories.map((category: Category) => ({ label: category.name, value: category.id }));
+  const mappedCategories = categories.map((category: Category) => ({
+    label: stripCategoryPrefix(category.name),
+    value: category.id,
+  }));
   const initialValue = categories.find((category: Category) => category.id === initialCategory)?.name;
 
   const handleSubmit = async (e: React.FormEvent) => {

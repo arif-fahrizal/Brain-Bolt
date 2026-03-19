@@ -5,17 +5,8 @@ import useAuth from '../../../hooks/useAuth';
 import useBoolean from '../../../hooks/useBoolean';
 import useQuestions from '../../../hooks/useQuestions';
 import { CATEGORY_MAPPINGS } from '../../../utils/categories.utils';
+import { stripCategoryPrefix } from '../../../utils/stripCategoryPrefix.utils';
 import QuizSetupPopup from '../../UI/PopUp/PopUp';
-
-const formattingName = (name: string) => {
-  if (name.startsWith('Entertainment: ')) {
-    return name.slice(15);
-  } else if (name.startsWith('Science: ')) {
-    return name.slice(9);
-  }
-
-  return name;
-};
 
 export default function CategoriesSection() {
   const navigate = useNavigate();
@@ -66,10 +57,10 @@ export default function CategoriesSection() {
             </div>
 
             <h4
-              title={formattingName(category.name)}
+              title={stripCategoryPrefix(category.name)}
               className="mb-2 text-sm md:text-xl text-white font-bold line-clamp-1"
             >
-              {formattingName(category.name)}
+              {stripCategoryPrefix(category.name)}
             </h4>
 
             <span

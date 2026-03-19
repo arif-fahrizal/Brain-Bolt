@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import type { Question } from '../../../types/question.types';
+import { stripCategoryPrefix } from '../../../utils/stripCategoryPrefix.utils';
 
 interface QuizHeaderProps {
   category: string;
@@ -14,7 +15,7 @@ const QuizHeader = ({ category, difficulty, quizData, currentQuestion }: QuizHea
     <div className="min-w-75 max-w-250 w-full mb-2.5 p-5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-lg shadow-xl">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="text-base md:text-xl text-white font-bold capitalize">{category}</h3>
+          <h3 className="text-base md:text-xl text-white font-bold capitalize">{stripCategoryPrefix(category)}</h3>
           <p className="text-sm text-gray-400 capitalize">{difficulty}</p>
         </div>
         <div className="text-right">
@@ -25,7 +26,6 @@ const QuizHeader = ({ category, difficulty, quizData, currentQuestion }: QuizHea
         </div>
       </div>
 
-      {/* Progress Bar */}
       <div className="w-full h-4 mb-2 rounded-full bg-white/10 overflow-hidden">
         <div
           className="h-full transition-all duration-500 bg-linear-to-r from-purple-500 to-pink-500"
