@@ -13,6 +13,10 @@ const SignInSchema = z.object({
     .nonempty('Password cannot be empty')
     .min(6, 'Password must be at least 8 characters')
     .max(20, 'Password must be at most 20 characters')
+    .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+      'Password must contain at least one uppercase letter, one lowercase letter, and one number'
+    )
     .trim(),
 });
 
@@ -22,6 +26,10 @@ const SignUpSchema = z.clone(SignInSchema).extend({
     .nonempty('Confirm Password cannot be empty')
     .min(6, 'Password must be at least 8 characters')
     .max(20, 'Password must be at most 20 characters')
+    .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+      'Password must contain at least one uppercase letter, one lowercase letter, and one number'
+    )
     .trim(),
 });
 

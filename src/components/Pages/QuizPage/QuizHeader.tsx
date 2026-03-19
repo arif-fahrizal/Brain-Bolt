@@ -26,11 +26,11 @@ const QuizHeader = ({ category, difficulty, quizData, currentQuestion }: QuizHea
       </div>
 
       {/* Progress Bar */}
-      <div className="w-full h-3 mb-2 rounded-full bg-white/10 overflow-hidden">
+      <div className="w-full h-4 mb-2 rounded-full bg-white/10 overflow-hidden">
         <div
           className="h-full transition-all duration-500 bg-linear-to-r from-purple-500 to-pink-500"
           style={{ width: `${progress}%` }}
-        ></div>
+        />
       </div>
       <p className="text-sm text-right text-gray-400">{progress.toFixed(0)}% Complete</p>
     </div>

@@ -1,14 +1,16 @@
-import { Activity, useCallback, useEffect } from 'react';
+import { lazy, Suspense, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import QuizCard from '../components/Pages/QuizPage/QuizCard';
-import QuizHeader from '../components/Pages/QuizPage/QuizHeader';
-import QuizTimer from '../components/Pages/QuizPage/QuizTimer';
+import QuizSkeleton from '../components/Loading/QuizSkeleton';
 import { BASE_TIMER } from '../contexts/Questions/QuestionsProvider';
 import useAuth from '../hooks/useAuth';
 import useQuestions from '../hooks/useQuestions';
 import type { User } from '../types/auth.types';
 import type { QuizHistory } from '../types/question.types';
 import { difficulty } from '../utils/difficulty.utils';
+
+const QuizCard = lazy(() => import('../components/Pages/QuizPage/QuizCard'));
+const QuizHeader = lazy(() => import('../components/Pages/QuizPage/QuizHeader'));
+const QuizTimer = lazy(() => import('../components/Pages/QuizPage/QuizTimer'));
 
 export default function QuizPage() {
   const { user, setUser } = useAuth();
@@ -67,7 +69,7 @@ export default function QuizPage() {
 
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen p-4 bg-linear-to-br from-slate-900 via-purple-900 to-slate-900">
-      <Activity mode={currentQuestion > questions.length - 1 ? 'hidden' : 'visible'}>
+      <Suspense fallback={<QuizSkeleton />}>
         <QuizHeader
           category={question?.category}
           difficulty={question?.difficulty}
@@ -81,7 +83,7 @@ export default function QuizPage() {
           setCurrentQuestion={setCurrentQuestion}
           setSelectedAnswer={setAnswers}
         />
-      </Activity>
+      </Suspense>
     </div>
   );
 }

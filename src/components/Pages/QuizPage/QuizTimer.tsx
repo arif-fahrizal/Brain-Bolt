@@ -35,7 +35,7 @@ export default function QuizTimer({ timer, setTimer }: QuizTimerProps) {
         </span>
       </div>
 
-      <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
+      <div className="w-full h-4 rounded-full bg-white/10 overflow-hidden">
         <div
           className={`h-full transition-all duration-1000 ${
             timer <= 10 ? 'bg-linear-to-r from-red-500 to-orange-500' : 'bg-linear-to-r from-blue-500 to-cyan-500'

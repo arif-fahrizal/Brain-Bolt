@@ -1,9 +1,12 @@
+import { lazy, Suspense } from 'react';
 import Footer from '../components/Layouts/Footer';
 import Header from '../components/Layouts/Header';
-import CategoriesSection from '../components/Pages/HomePage/CategoriesSection';
+import CategorySkeleton from '../components/Loading/CategorySkeleton';
 import FeaturesSection from '../components/Pages/HomePage/FeaturesSection';
 import HeroSection from '../components/Pages/HomePage/HeroSection';
 import StatsSection from '../components/Pages/HomePage/StatsSection';
+
+const CategoriesSection = lazy(() => import('../components/Pages/HomePage/CategoriesSection'));
 
 export default function HomePage() {
   return (
@@ -18,7 +21,9 @@ export default function HomePage() {
         <Header />
         <HeroSection />
         <StatsSection />
-        <CategoriesSection />
+        <Suspense fallback={<CategorySkeleton />}>
+          <CategoriesSection />
+        </Suspense>
         <FeaturesSection />
         <Footer />
       </div>
