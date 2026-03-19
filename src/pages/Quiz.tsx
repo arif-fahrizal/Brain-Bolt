@@ -7,6 +7,7 @@ import useQuestions from '../hooks/useQuestions';
 import type { User } from '../types/auth.types';
 import type { QuizHistory } from '../types/question.types';
 import { DIFFICULTY_OPTIONS } from '../utils/difficulty.utils';
+import { stripCategoryPrefix } from '../utils/stripCategoryPrefix.utils';
 
 const QuizCard = lazy(() => import('../components/Pages/QuizPage/QuizCard'));
 const QuizHeader = lazy(() => import('../components/Pages/QuizPage/QuizHeader'));
@@ -68,7 +69,7 @@ export default function QuizPage() {
     <div className="flex flex-col items-center justify-center w-full min-h-screen p-4 bg-linear-to-br from-slate-900 via-purple-900 to-slate-900">
       <Suspense fallback={<QuizSkeleton />}>
         <QuizHeader
-          category={question?.category}
+          category={stripCategoryPrefix(question?.category)}
           difficulty={question?.difficulty}
           quizData={questions}
           currentQuestion={currentQuestion}
