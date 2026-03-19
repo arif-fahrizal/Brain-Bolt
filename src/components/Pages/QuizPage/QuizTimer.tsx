@@ -2,18 +2,19 @@ import { AlertCircle, Clock } from 'lucide-react';
 import { useEffect, useMemo } from 'react';
 
 interface QuizTimerProps {
+  initialTimer: number;
   timer: number;
   setTimer: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function QuizTimer({ timer, setTimer }: QuizTimerProps) {
+export default function QuizTimer({ initialTimer, timer, setTimer }: QuizTimerProps) {
   const { minutes, seconds, timePercentage } = useMemo(
     () => ({
       minutes: Math.floor(timer / 60),
       seconds: timer % 60,
-      timePercentage: (timer / 30) * 100,
+      timePercentage: (timer / initialTimer || 30) * 100,
     }),
-    [timer]
+    [initialTimer, timer]
   );
 
   useEffect(() => {

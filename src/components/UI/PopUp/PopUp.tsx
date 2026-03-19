@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useQuestions from '../../../hooks/useQuestions';
 import { fetchAPI } from '../../../lib/api';
 import type { Category } from '../../../types/category.types';
-import { difficulty } from '../../../utils/difficulty.utils';
+import { DIFFICULTY_OPTIONS } from '../../../utils/difficulty.utils';
 import Input from '../Inputs/Input';
 import Select from '../Inputs/Select';
 
@@ -84,6 +84,7 @@ export default function QuizSetupPopup({ initialCategory = 0, isOpen, onClose }:
                 label="Question Count"
                 type="number"
                 min={10}
+                max={50}
                 defaultValue={10}
                 onChange={({ target }) => setParams(prev => ({ ...prev, amount: Number(target.value) }))}
                 required
@@ -96,7 +97,7 @@ export default function QuizSetupPopup({ initialCategory = 0, isOpen, onClose }:
               />
               <Select
                 label="Select Difficulty"
-                options={difficulty}
+                options={DIFFICULTY_OPTIONS}
                 onChange={value => setParams(prev => ({ ...prev, difficulty: String(value) }))}
               />
               <button className="w-full p-2.5 text-white rounded-full bg-linear-to-r from-purple-500 to-pink-500">

@@ -32,7 +32,7 @@ export default function HeroSection() {
 
         <h2 className="mb-6 text-5xl md:text-7xl text-white font-extrabold leading-tight">
           Test Your
-          <span className="block text-transparent bg-linear-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text">
+          <span className="block text-transparent bg-clip-text bg-linear-to-r from-purple-400 via-pink-400 to-blue-400">
             Knowledge
           </span>
         </h2>

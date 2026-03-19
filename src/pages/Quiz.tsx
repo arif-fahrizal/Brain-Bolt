@@ -6,7 +6,7 @@ import useAuth from '../hooks/useAuth';
 import useQuestions from '../hooks/useQuestions';
 import type { User } from '../types/auth.types';
 import type { QuizHistory } from '../types/question.types';
-import { difficulty } from '../utils/difficulty.utils';
+import { DIFFICULTY_OPTIONS } from '../utils/difficulty.utils';
 
 const QuizCard = lazy(() => import('../components/Pages/QuizPage/QuizCard'));
 const QuizHeader = lazy(() => import('../components/Pages/QuizPage/QuizHeader'));
@@ -19,6 +19,8 @@ export default function QuizPage() {
   const navigate = useNavigate();
 
   const question = questions?.[currentQuestion];
+  const multiplier = DIFFICULTY_OPTIONS.find(item => item.value === question?.difficulty)?.multiplier || 1.0;
+  const newTimer = Math.round(BASE_TIMER * multiplier);
 
   const reset = useCallback(() => {
     setQuestions([]);
@@ -29,13 +31,8 @@ export default function QuizPage() {
   }, [setQuestions, setCurrentQuestion, setTimer, setAnswers]);
 
   useEffect(() => {
-    if (!questions.length) return;
-
-    const multiplier = difficulty.find(item => item.value === question?.difficulty)?.multiplier || 1.0;
-    const newTimer = Math.round(BASE_TIMER * multiplier);
-
-    setTimer(newTimer);
-  }, [questions, question, setTimer]);
+    if (question) setTimer(newTimer);
+  }, [question, newTimer, setTimer]);
 
   useEffect(() => {
     if (!user || !user.status || !questions.length) return;
@@ -76,7 +73,7 @@ export default function QuizPage() {
           quizData={questions}
           currentQuestion={currentQuestion}
         />
-        <QuizTimer timer={timer} setTimer={setTimer} />
+        <QuizTimer initialTimer={newTimer} timer={timer} setTimer={setTimer} />
         <QuizCard
           questions={questions}
           currentQuestion={currentQuestion}
