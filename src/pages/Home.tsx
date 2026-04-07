@@ -19,12 +19,14 @@ export default function HomePage() {
 
       <div className="container relative mx-auto z-10">
         <Header />
-        <HeroSection />
-        <StatsSection />
-        <Suspense fallback={<CategorySkeleton />}>
-          <CategoriesSection />
-        </Suspense>
-        <FeaturesSection />
+        <main>
+          <HeroSection />
+          <StatsSection />
+          <Suspense fallback={<CategorySkeleton />}>
+            <CategoriesSection />
+          </Suspense>
+          <FeaturesSection />
+        </main>
         <Footer />
       </div>
     </div>

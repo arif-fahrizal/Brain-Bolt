@@ -58,7 +58,7 @@ export default function QuizPage() {
   }, [timer, setCurrentQuestion]);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full min-h-screen p-4 bg-linear-to-br from-slate-900 via-purple-900 to-slate-900">
+    <main className="flex flex-col items-center justify-center w-full min-h-screen p-4 bg-linear-to-br from-slate-900 via-purple-900 to-slate-900">
       <Suspense fallback={<QuizSkeleton />}>
         <QuizHeader
           category={stripCategoryPrefix(question?.category)}
@@ -74,6 +74,6 @@ export default function QuizPage() {
           setSelectedAnswer={setAnswers}
         />
       </Suspense>
-    </div>
+    </main>
   );
 }

@@ -10,13 +10,28 @@ export default function Footer() {
         Don't forget to follow me
       </span>
       <div className="flex justify-center gap-5 w-70 my-5 px-5 py-2.5 bg-linear-to-r from-purple-500 to-pink-500">
-        <Link to="https://linkedin.com/in/arif-fahrizal" target="_blank" className="duration-300 hover:text-white">
+        <Link
+          to="https://linkedin.com/in/arif-fahrizal"
+          target="_blank"
+          aria-label="Visit our LinkedIn profile"
+          className="duration-300 hover:text-white"
+        >
           <LinkedinIcon size={35} />
         </Link>
-        <Link to="https://github.com/arif-fahrizal" target="_blank" className="duration-300 hover:text-white">
+        <Link
+          to="https://github.com/arif-fahrizal"
+          target="_blank"
+          aria-label="Visit our GitHub profile"
+          className="duration-300 hover:text-white"
+        >
           <GithubIcon size={35} />
         </Link>
-        <Link to="https://instagram.com/arifahrizal__" target="_blank" className="duration-300 hover:text-white">
+        <Link
+          to="https://instagram.com/arifahrizal__"
+          target="_blank"
+          aria-label="Visit our Instagram profile"
+          className="duration-300 hover:text-white"
+        >
           <InstagramIcon size={35} />
         </Link>
       </div>

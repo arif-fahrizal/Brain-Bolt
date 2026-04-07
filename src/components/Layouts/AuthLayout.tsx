@@ -25,7 +25,7 @@ export default function AuthLayout({ title, error, children }: AuthLayoutProps) 
   }, [user, pathname, navigate]);
 
   return (
-    <div className="flex flex-col justify-center items-center w-full min-h-dvh px-4 pb-5 text-white bg-linear-to-br from-slate-900 via-purple-900 to-slate-900 bg-opacity-30 filter backdrop-blur md:h-full">
+    <main className="flex flex-col justify-center items-center w-full min-h-dvh px-4 pb-5 text-white bg-linear-to-br from-slate-900 via-purple-900 to-slate-900 bg-opacity-30 filter backdrop-blur md:h-full">
       <img
         src="./icons/citylife.svg"
         alt="auth-background"
@@ -36,6 +36,6 @@ export default function AuthLayout({ title, error, children }: AuthLayoutProps) 
         {error && <p className="mb-2.5 text-sm text-center text-red-500">{error}</p>}
         {children}
       </div>
-    </div>
+    </main>
   );
 }

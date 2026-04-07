@@ -1,0 +1,19 @@
+# Brain Bolt - Quiz Application
+# Allow search engines to crawl public pages
+
+User-agent: *
+Allow: /
+
+# Disallow crawling of sensitive pages
+Disallow: /sign-in
+Disallow: /sign-up
+Disallow: /quiz
+Disallow: /scores
+
+# Allow crawling of static assets
+Allow: /assets/
+Allow: /images/
+Allow: /icons/
+
+# Sitemap (add when available)
+# Sitemap: https://example.com/sitemap.xml
