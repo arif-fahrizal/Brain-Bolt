@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import QuizSkeleton from '../components/Loading/QuizSkeleton';
 import { BASE_TIMER } from '../contexts/Questions/QuestionsProvider';
@@ -15,21 +15,13 @@ const QuizTimer = lazy(() => import('../components/Pages/QuizPage/QuizTimer'));
 
 export default function QuizPage() {
   const { user, setUser } = useAuth();
-  const { questions, setQuestions, currentQuestion, setCurrentQuestion, timer, setTimer, answers, setAnswers } =
+  const { questions, currentQuestion, setCurrentQuestion, timer, setTimer, answers, setAnswers, resetQuiz } =
     useQuestions();
   const navigate = useNavigate();
 
   const question = questions?.[currentQuestion];
   const multiplier = DIFFICULTY_OPTIONS.find(item => item.value === question?.difficulty)?.multiplier || 1.0;
   const newTimer = Math.round(BASE_TIMER * multiplier);
-
-  const reset = useCallback(() => {
-    setQuestions([]);
-    setCurrentQuestion(0);
-    setTimer(BASE_TIMER);
-    setAnswers([]);
-    localStorage.removeItem('quiz');
-  }, [setQuestions, setCurrentQuestion, setTimer, setAnswers]);
 
   useEffect(() => {
     if (question) setTimer(newTimer);
@@ -55,10 +47,10 @@ export default function QuizPage() {
     };
 
     setUser(updateUser);
-    reset();
+    resetQuiz();
 
     navigate('/scores');
-  }, [user, setUser, questions, currentQuestion, answers, reset, navigate]);
+  }, [user, setUser, questions, currentQuestion, answers, resetQuiz, navigate]);
 
   useEffect(() => {
     if (timer > 0) return;
@@ -74,7 +66,7 @@ export default function QuizPage() {
           quizData={questions}
           currentQuestion={currentQuestion}
         />
-        <QuizTimer initialTimer={newTimer} timer={timer} setTimer={setTimer} />
+        <QuizTimer initialTimer={newTimer} timer={timer} />
         <QuizCard
           questions={questions}
           currentQuestion={currentQuestion}

@@ -12,6 +12,7 @@ export interface QuestionsContextType {
   setTimer: React.Dispatch<React.SetStateAction<number>>;
   answers: Answer[];
   setAnswers: React.Dispatch<React.SetStateAction<Answer[]>>;
+  resetQuiz: () => void;
 }
 
 const QuestionsContext = createContext<QuestionsContextType>({} as QuestionsContextType);

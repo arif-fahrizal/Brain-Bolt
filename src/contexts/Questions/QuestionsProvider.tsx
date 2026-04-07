@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { fetchAPI } from '../../lib/api';
 import type { Category } from '../../types/category.types';
 import type { Answer, Question } from '../../types/question.types';
@@ -19,6 +19,16 @@ export default function QuestionsProvider({ children }: { children: React.ReactN
   const [categories, setCategories] = useState<Category[]>([]);
   const [timer, setTimer] = useState<number>(BASE_TIMER);
   const [answers, setAnswers] = useState<Answer[]>([]);
+
+  const isQuizFinished = questions.length > 0 && currentQuestion >= questions.length;
+
+  const resetQuiz = useCallback(() => {
+    setQuestions([]);
+    setCurrentQuestion(0);
+    setTimer(BASE_TIMER);
+    setAnswers([]);
+    localStorage.removeItem('quiz');
+  }, []);
 
   useEffect(() => {
     const getQuizData = () => {
@@ -53,6 +63,20 @@ export default function QuestionsProvider({ children }: { children: React.ReactN
   }, []);
 
   useEffect(() => {
+    if (isQuizFinished) return;
+
+    const interval = setInterval(() => {
+      setTimer(prevTimer => {
+        if (prevTimer > 1) return prevTimer - 1;
+        setCurrentQuestion(prevCQ => prevCQ + 1);
+        return BASE_TIMER;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isQuizFinished]);
+
+  useEffect(() => {
     const saveQuizData = () => {
       if (timer <= 0 || (questions.length !== 0 && currentQuestion > questions.length - 1)) return;
 
@@ -78,6 +102,7 @@ export default function QuestionsProvider({ children }: { children: React.ReactN
         setTimer,
         answers,
         setAnswers,
+        resetQuiz,
       }}
     >
       {children}

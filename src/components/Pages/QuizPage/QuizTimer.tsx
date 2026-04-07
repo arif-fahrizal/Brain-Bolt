@@ -1,13 +1,12 @@
 import { AlertCircle, Clock } from 'lucide-react';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 
 interface QuizTimerProps {
   initialTimer: number;
   timer: number;
-  setTimer: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function QuizTimer({ initialTimer, timer, setTimer }: QuizTimerProps) {
+export default function QuizTimer({ initialTimer, timer }: QuizTimerProps) {
   const { minutes, seconds, timePercentage } = useMemo(
     () => ({
       minutes: Math.floor(timer / 60),
@@ -17,13 +16,6 @@ export default function QuizTimer({ initialTimer, timer, setTimer }: QuizTimerPr
     [initialTimer, timer]
   );
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimer(prevTimer => prevTimer - 1);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [timer, setTimer]);
-
   return (
     <div className="min-w-75 max-w-250 w-full mb-2.5 p-5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-lg shadow-xl">
       <div className="flex items-center justify-between mb-3">
@@ -32,7 +24,7 @@ export default function QuizTimer({ initialTimer, timer, setTimer }: QuizTimerPr
           <span className="text-white font-semibold">Time Remaining</span>
         </div>
         <span className={`text-2xl md:text-3xl ${timer <= 10 ? 'text-red-400' : 'text-white'} font-bold`}>
-          {minutes}m {seconds}s
+          {String(minutes).padStart(2, '0')} m {String(seconds).padStart(2, '0')} s
         </span>
       </div>
 
