@@ -1,27 +1,6 @@
 import { ChevronRight, Play, Trophy } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import useAuth from '../../../hooks/useAuth';
-import useBoolean from '../../../hooks/useBoolean';
-import useQuestions from '../../../hooks/useQuestions';
-import QuizSetupPopup from '../../UI/PopUp/PopUp';
 
-export default function HeroSection() {
-  const navigate = useNavigate();
-
-  const { user } = useAuth();
-  const { questions } = useQuestions();
-  const { value: isModalOpen, onTrue, onFalse } = useBoolean();
-
-  const handleStartQuiz = () => {
-    if (!user.status) {
-      navigate('/sign-in');
-    } else if (questions.length > 0) {
-      navigate('/quiz');
-    } else {
-      onTrue();
-    }
-  };
-
+export default function HeroSection({ handleStartQuiz }: { handleStartQuiz: () => void }) {
   return (
     <section className="px-4 py-16 text-center">
       <div className="max-w-4xl mx-auto">
@@ -55,7 +34,6 @@ export default function HeroSection() {
           </button>
         </div>
       </div>
-      <QuizSetupPopup isOpen={isModalOpen} onClose={onFalse} />
     </section>
   );
 }

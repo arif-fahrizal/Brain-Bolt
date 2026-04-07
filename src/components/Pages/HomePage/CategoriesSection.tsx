@@ -1,31 +1,21 @@
 import { CircleStar, Play } from 'lucide-react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import useAuth from '../../../hooks/useAuth';
-import useBoolean from '../../../hooks/useBoolean';
-import useQuestions from '../../../hooks/useQuestions';
+import type { Category } from '../../../types/category.types';
 import { CATEGORY_MAPPINGS } from '../../../utils/categories.utils';
 import { stripCategoryPrefix } from '../../../utils/stripCategoryPrefix.utils';
-import QuizSetupPopup from '../../UI/PopUp/PopUp';
 
-export default function CategoriesSection() {
-  const navigate = useNavigate();
-  const [selectedCategory, setSelectedCategory] = useState<number>(1);
+interface CategoriesSectionProps {
+  categories: Category[];
+  selectedCategory: number;
+  setSelectedCategory: (categoryId: number) => void;
+  handleStartQuiz: () => void;
+}
 
-  const { user } = useAuth();
-  const { questions, categories } = useQuestions();
-  const { value: isModalOpen, onTrue, onFalse } = useBoolean();
-
-  const handleStartQuiz = () => {
-    if (!user.status) {
-      navigate('/sign-in');
-    } else if (questions.length > 0) {
-      navigate('/quiz');
-    } else {
-      onTrue();
-    }
-  };
-
+export default function CategoriesSection({
+  categories = [],
+  selectedCategory,
+  setSelectedCategory,
+  handleStartQuiz,
+}: CategoriesSectionProps) {
   return (
     <section className="px-4 py-16">
       <div className="mb-12 text-center">
@@ -80,12 +70,6 @@ export default function CategoriesSection() {
             </button>
           </div>
         ))}
-        <QuizSetupPopup
-          key={selectedCategory}
-          initialCategory={selectedCategory}
-          isOpen={isModalOpen}
-          onClose={onFalse}
-        />
       </div>
     </section>
   );
