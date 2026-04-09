@@ -21,11 +21,11 @@ export default function Select({ label, initialValue = '', options, onChange }: 
 
   return (
     <div className="relative text-sm text-left text-white">
-      <label htmlFor={label} className="pl-2.5">
+      <label htmlFor={`button-${label}`} className="pl-2.5">
         {label}
       </label>
       <button
-        id={label}
+        id={`button-${label}`}
         type="button"
         value={selected}
         onClick={isOpen.toggle}
@@ -35,7 +35,7 @@ export default function Select({ label, initialValue = '', options, onChange }: 
       </button>
       <Activity mode={isOpen.value ? 'visible' : 'hidden'}>
         <ul
-          id={label}
+          id={`list-${label}`}
           className="absolute flex flex-col max-h-52 w-full h-fit top-[110%] left-0 p-2.5 text-white rounded-2xl border border-white/20 backdrop-blur-xs overflow-y-auto scrollbar-select z-10"
         >
           {options.map(option => (

@@ -8,25 +8,23 @@ const stats = [
 
 export default function StatsSection() {
   return (
-    <section className="px-4 py-8">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-        {stats.map((stat, index) => (
-          <div
-            key={index}
-            className="p-6 rounded-2xl border border-white/20 transition-all bg-white/10 backdrop-blur-md hover:bg-white/15"
-          >
-            <div className="flex items-center gap-4">
-              <div className={`flex justify-center items-center w-12 h-12 rounded-xl bg-white/10 ${stat.color}`}>
-                <stat.icon className="w-6 h-6" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-400">{stat.label}</p>
-                <p className="text-2xl text-white font-bold">{stat.value}</p>
-              </div>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto px-4 py-8">
+      {stats.map((stat, index) => (
+        <div
+          key={index}
+          className="p-6 rounded-2xl border border-white/20 transition-all bg-white/10 backdrop-blur-md hover:bg-white/15"
+        >
+          <div className="flex items-center gap-4">
+            <div className={`flex justify-center items-center w-12 h-12 rounded-xl bg-white/10 ${stat.color}`}>
+              <stat.icon className="w-6 h-6" />
+            </div>
+            <div>
+              <p className="text-sm text-gray-400">{stat.label}</p>
+              <p className="text-2xl text-white font-bold">{stat.value}</p>
             </div>
           </div>
-        ))}
-      </div>
-    </section>
+        </div>
+      ))}
+    </div>
   );
 }

@@ -6,6 +6,10 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
+    // Minification is enabled by default (esbuild)
+    minify: 'esbuild',
+    sourcemap: false, // Disable source maps in production
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -13,6 +17,10 @@ export default defineConfig({
           'zod-vendor': ['zod'],
           'bycrypt-vendor': ['bcryptjs'],
         },
+        // Optimize chunk naming
+        entryFileNames: 'js/[name]-[hash].js',
+        chunkFileNames: 'js/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash][extname]',
       },
     },
   },

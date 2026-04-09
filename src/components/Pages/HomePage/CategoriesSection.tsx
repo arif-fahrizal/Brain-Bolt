@@ -17,7 +17,7 @@ export default function CategoriesSection({
   handleStartQuiz,
 }: CategoriesSectionProps) {
   return (
-    <section className="px-4 py-16">
+    <section id="category-section" className="px-4 py-16">
       <div className="mb-12 text-center">
         <h3 className="mb-4 text-4xl text-white font-bold">Choose Your Category</h3>
         <p className="text-lg text-gray-300">Pick a topic and start testing your knowledge</p>
