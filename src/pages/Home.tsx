@@ -43,10 +43,8 @@ export default function HomePage() {
       <div className="container relative mx-auto z-10">
         <Header />
         <main>
-          <section id="hero-section" className="flex flex-col justify-center items-center gap-5 md:gap-10 h-dvh">
             <HeroSection handleStartQuiz={handleStartQuiz} />
             <StatsSection />
-          </section>
           <Suspense fallback={<CategorySkeleton />}>
             <CategoriesSection
               categories={categories}
