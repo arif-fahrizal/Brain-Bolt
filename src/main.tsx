@@ -7,7 +7,6 @@ import './index.css';
 import HomePage from './pages/Home';
 import QuizPage from './pages/Quiz';
 import ScoresPage from './pages/Scores';
-import TestPage from './pages/Test';
 const SignInPage = lazy(() => import('./pages/SignIn'));
 const SignUpPage = lazy(() => import('./pages/SignUp'));
 
@@ -31,10 +30,6 @@ const router = createBrowserRouter([
   {
     path: '/scores',
     element: <ScoresPage />,
-  },
-  {
-    path: '/test',
-    element: <TestPage />,
   },
 ]);
 
