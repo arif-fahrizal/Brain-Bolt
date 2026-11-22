@@ -1,27 +1,27 @@
-import { Star, Trophy, Users } from 'lucide-react';
+import { Star, Target, Users } from 'lucide-react';
 
 const stats = [
-  { icon: Users, label: 'Active Players', value: '15.2k', color: 'text-blue-500' },
-  { icon: Trophy, label: 'Quizzes Completed', value: '45.8k', color: 'text-yellow-500' },
-  { icon: Star, label: 'Average Rating', value: '4.8/5', color: 'text-purple-500' },
+  { icon: Users, label: 'Active players', value: '15.2k' },
+  { icon: Target, label: 'Quizzes completed', value: '45.8k' },
+  { icon: Star, label: 'Average rating', value: '4.8' },
 ];
 
 export default function StatsSection() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto px-4 py-8">
+    <div className="grid grid-cols-1 border-y border-white/[0.07] md:grid-cols-3">
       {stats.map((stat, index) => (
         <div
-          key={index}
-          className="p-6 rounded-2xl border border-white/20 transition-all bg-white/10 backdrop-blur-md hover:bg-white/15"
+          key={stat.label}
+          className={`flex items-center gap-4 px-5 py-6 ${
+            index > 0 ? 'border-t border-white/[0.07] md:border-l md:border-t-0' : ''
+          }`}
         >
-          <div className="flex items-center gap-4">
-            <div className={`flex justify-center items-center w-12 h-12 rounded-xl bg-white/10 ${stat.color}`}>
-              <stat.icon className="w-6 h-6" />
-            </div>
-            <div>
-              <p className="text-sm text-gray-400">{stat.label}</p>
-              <p className="text-2xl text-white font-bold">{stat.value}</p>
-            </div>
+          <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-[#ff0513]/20 bg-[#ff0513]/[0.08]">
+            <stat.icon className="h-5 w-5 text-[#ff0513]" />
+          </div>
+          <div>
+            <p className="font-manrope text-2xl font-bold text-white">{stat.value}</p>
+            <p className="mt-0.5 text-sm text-zinc-500">{stat.label}</p>
           </div>
         </div>
       ))}

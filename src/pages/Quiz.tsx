@@ -18,7 +18,6 @@ export default function QuizPage() {
   const { questions, currentQuestion, setCurrentQuestion, timer, setTimer, answers, setAnswers, resetQuiz } =
     useQuestions();
   const navigate = useNavigate();
-
   const question = questions?.[currentQuestion];
   const multiplier = DIFFICULTY_OPTIONS.find(item => item.value === question?.difficulty)?.multiplier || 1.0;
   const newTimer = Math.round(BASE_TIMER * multiplier);
@@ -31,13 +30,11 @@ export default function QuizPage() {
     if (!user || !user.status || !questions.length) return;
     if (currentQuestion <= questions.length - 1) return;
 
-    const question = questions[0];
-
     const quizHistory: QuizHistory = {
       answers: [...answers],
-      category: question?.category,
+      category: questions[0]?.category,
       date: new Date().toISOString(),
-      difficulty: question?.difficulty,
+      difficulty: questions[0]?.difficulty,
       totalQuestions: questions.length,
     };
 
@@ -48,7 +45,6 @@ export default function QuizPage() {
 
     setUser(updateUser);
     resetQuiz();
-
     navigate('/scores');
   }, [user, setUser, questions, currentQuestion, answers, resetQuiz, navigate]);
 
@@ -58,22 +54,25 @@ export default function QuizPage() {
   }, [timer, setCurrentQuestion]);
 
   return (
-    <main className="flex flex-col items-center justify-center w-full min-h-screen p-4 bg-linear-to-br from-slate-900 via-purple-900 to-slate-900">
-      <Suspense fallback={<QuizSkeleton />}>
-        <QuizHeader
-          category={stripCategoryPrefix(question?.category)}
-          difficulty={question?.difficulty}
-          quizData={questions}
-          currentQuestion={currentQuestion}
-        />
-        <QuizTimer initialTimer={newTimer} timer={timer} />
-        <QuizCard
-          questions={questions}
-          currentQuestion={currentQuestion}
-          setCurrentQuestion={setCurrentQuestion}
-          setSelectedAnswer={setAnswers}
-        />
-      </Suspense>
+    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 py-8 text-white">
+      <div className="pointer-events-none absolute left-1/2 top-[-22rem] h-[38rem] w-[38rem] -translate-x-1/2 rounded-full bg-[#ff0513]/[0.08] blur-[100px]" />
+      <div className="relative w-full max-w-5xl">
+        <Suspense fallback={<QuizSkeleton />}>
+          <QuizHeader
+            category={stripCategoryPrefix(question?.category)}
+            difficulty={question?.difficulty}
+            quizData={questions}
+            currentQuestion={currentQuestion}
+          />
+          <QuizTimer initialTimer={newTimer} timer={timer} />
+          <QuizCard
+            questions={questions}
+            currentQuestion={currentQuestion}
+            setCurrentQuestion={setCurrentQuestion}
+            setSelectedAnswer={setAnswers}
+          />
+        </Suspense>
+      </div>
     </main>
   );
 }

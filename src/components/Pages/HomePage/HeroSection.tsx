@@ -1,37 +1,58 @@
-import { ChevronRight, Play, Trophy } from 'lucide-react';
+import { ArrowRight, BrainCircuit, ChevronRight, Play } from 'lucide-react';
 
 export default function HeroSection({ handleStartQuiz }: { handleStartQuiz: () => void }) {
   return (
-    <div className="max-w-4xl w-full mx-auto px-4 text-center">
-      <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 text-white rounded-full bg-white/10 backdrop-blur-sm">
-        <Trophy className="w-5 h-5 text-yellow-400" />
-        <span className="text-sm font-medium">Join 15,000+ Quiz Enthusiasts</span>
+    <section className="grid min-h-[590px] items-center gap-10 px-1 py-20 lg:grid-cols-[1.15fr_.85fr] lg:py-24">
+      <div className="max-w-3xl">
+        <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#ff0513]/20 bg-[#ff0513]/[0.08] px-3 py-1.5 text-sm text-red-100">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#ff0513] shadow-[0_0_12px_rgba(255,5,19,.9)]" />
+          Daily knowledge challenges
+        </div>
+
+        <h2 className="font-manrope text-[clamp(3.4rem,8vw,6.8rem)] font-extrabold leading-[0.92] tracking-[-0.07em] text-white">
+          Think fast.
+          <span className="mt-2 block bg-gradient-to-r from-[#ff0513] via-white to-[#ff0513] bg-clip-text text-transparent">
+            Learn faster.
+          </span>
+        </h2>
+
+        <p className="mt-7 max-w-xl text-base leading-7 text-zinc-400 sm:text-lg">
+          Short, focused quizzes that sharpen your curiosity and turn every answer into a step forward.
+        </p>
+
+        <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+          <button onClick={handleStartQuiz} className="btn-primary group px-6 py-3.5 text-base sm:px-7">
+            <Play className="h-4 w-4 fill-current" />
+            Start quiz
+            <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </button>
+          <a
+            href="#category-section"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.035] px-6 py-3.5 text-zinc-200 transition-all hover:border-[#ff0513]/30 hover:bg-[#ff0513]/[0.06]"
+          >
+            Explore categories
+            <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
       </div>
 
-      <h2 className="mb-6 text-5xl md:text-7xl text-white font-extrabold leading-tight">
-        Test Your
-        <span className="block text-transparent bg-clip-text bg-linear-to-r from-purple-400 via-pink-400 to-blue-400">
-          Knowledge
-        </span>
-      </h2>
-
-      <p className="max-w-2xl mx-auto mb-8 text-xl text-gray-300">
-        Challenge yourself with quick quizzes across various topics. Learn, compete, and have fun!
-      </p>
-
-      <div className="flex flex-col sm:flex-row justify-center gap-4">
-        <button
-          onClick={handleStartQuiz}
-          className="group btn-primary flex justify-center items-center gap-2 px-8 py-4 text-lg"
-        >
-          <Play className="w-5 h-5 transition-transform group-hover:scale-110" />
-          Start Quiz Now
-          <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-        </button>
-        <button className="px-8 py-4 text-lg text-white font-bold rounded-xl border-2 transition-all border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20">
-          View Leaderboard
-        </button>
+      <div className="relative mx-auto hidden h-[390px] w-full max-w-[430px] lg:block">
+        <div className="surface absolute left-8 top-6 h-[330px] w-[330px] rotate-6 rounded-[3rem] border-[#ff0513]/10 bg-[#ff0513]/[0.035]" />
+        <div className="absolute left-0 top-14 grid h-[320px] w-[360px] place-items-center rounded-[3rem] border border-white/[0.09] bg-[#0f0f38]/95 shadow-[0_30px_100px_rgba(0,0,0,.45)] backdrop-blur-xl">
+          <div className="relative grid h-44 w-44 place-items-center rounded-full border border-[#ff0513]/25 bg-[#ff0513]/[0.07] shadow-[0_0_70px_rgba(255,5,19,.16)]">
+            <div className="absolute inset-4 rounded-full border border-dashed border-red-300/25 animate-[spin_24s_linear_infinite]" />
+            <BrainCircuit className="h-20 w-20 text-[#ff0513]" strokeWidth={1.25} />
+          </div>
+          <div className="absolute right-[-18px] top-12 rounded-2xl border border-white/10 bg-[#17174a] px-4 py-3 shadow-xl">
+            <p className="text-[10px] uppercase tracking-[0.18em] text-zinc-400">Streak</p>
+            <p className="mt-1 font-manrope text-xl font-bold">12 days</p>
+          </div>
+          <div className="absolute bottom-9 left-[-28px] rounded-2xl border border-white/10 bg-[#17174a] px-4 py-3 shadow-xl">
+            <p className="text-[10px] uppercase tracking-[0.18em] text-zinc-400">Improve</p>
+            <p className="mt-1 font-manrope text-xl font-bold text-[#ff0513]">+18%</p>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

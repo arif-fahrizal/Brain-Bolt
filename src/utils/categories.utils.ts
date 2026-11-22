@@ -20,7 +20,7 @@ export const CATEGORY_MAPPINGS: Record<string, ManualCategoryType> = {
   },
   'Entertainment: Film': {
     icon: '🎬',
-    color: 'from-purple-500 to-pink-500',
+    color: 'from-[#ff0513] to-[#ff6b73]',
     rating: '4.6',
     description: 'Hollywood movies and film history',
   },
@@ -38,13 +38,13 @@ export const CATEGORY_MAPPINGS: Record<string, ManualCategoryType> = {
   },
   'Entertainment: Television': {
     icon: '📺',
-    color: 'from-indigo-500 to-blue-500',
+    color: 'from-[#0f0f38] to-[#ff0513]',
     rating: '4.4',
     description: 'TV shows and series trivia',
   },
   'Entertainment: Video Games': {
     icon: '🎮',
-    color: 'from-violet-500 to-purple-500',
+    color: 'from-[#ff0513] to-[#ff7580]',
     rating: '4.8',
     description: 'Video game history and popular titles',
   },
@@ -68,7 +68,7 @@ export const CATEGORY_MAPPINGS: Record<string, ManualCategoryType> = {
   },
   'Science: Mathematics': {
     icon: '➗',
-    color: 'from-blue-600 to-indigo-600',
+    color: 'from-[#0f0f38] to-[#ff0513]',
     rating: '4.4',
     description: 'Mathematics and logic puzzles',
   },
@@ -104,7 +104,7 @@ export const CATEGORY_MAPPINGS: Record<string, ManualCategoryType> = {
   },
   Art: {
     icon: '🎨',
-    color: 'from-fuchsia-500 to-purple-500',
+    color: 'from-[#ff0513] to-[#ff7580]',
     rating: '4.4',
     description: 'Art history and famous artworks',
   },

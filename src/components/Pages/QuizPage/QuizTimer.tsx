@@ -15,32 +15,27 @@ export default function QuizTimer({ initialTimer, timer }: QuizTimerProps) {
     }),
     [initialTimer, timer]
   );
+  const urgent = timer <= 10;
 
   return (
-    <div className="min-w-75 max-w-250 w-full mb-2.5 p-5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-lg shadow-xl">
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <Clock className={`w-6 h-6 ${timer <= 10 ? 'text-red-400 animate-pulse' : 'text-blue-400'}`} />
-          <span className="text-white font-semibold">Time Remaining</span>
+    <div className="surface mb-3 w-full rounded-2xl p-4">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2 text-sm text-zinc-400">
+          <Clock className={`h-4 w-4 ${urgent ? 'text-red-400' : 'text-[#ff0513]'}`} /> Time remaining
         </div>
-        <span className={`text-2xl md:text-3xl ${timer <= 10 ? 'text-red-400' : 'text-white'} font-bold`}>
-          {String(minutes).padStart(2, '0')} m {String(seconds).padStart(2, '0')} s
+        <span className={`font-manrope text-xl font-bold ${urgent ? 'text-red-400' : 'text-white'}`}>
+          {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
         </span>
       </div>
-
-      <div className="w-full h-4 rounded-full bg-white/10 overflow-hidden">
+      <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/[0.06]">
         <div
-          className={`h-full transition-all duration-1000 ${
-            timer <= 10 ? 'bg-linear-to-r from-red-500 to-orange-500' : 'bg-linear-to-r from-blue-500 to-cyan-500'
-          }`}
+          className={`h-full rounded-full transition-all duration-1000 ${urgent ? 'bg-red-500' : 'bg-[#ff0513]'}`}
           style={{ width: `${timePercentage}%` }}
         />
       </div>
-
-      {timer <= 10 && (
-        <div className="flex items-center gap-2 mt-3 text-sm text-red-400">
-          <AlertCircle className="w-4 h-4" />
-          <span>Hurry up! Time is running out!</span>
+      {urgent && (
+        <div className="mt-3 flex items-center gap-2 text-xs text-red-400">
+          <AlertCircle className="h-4 w-4" /> Time is almost up!
         </div>
       )}
     </div>

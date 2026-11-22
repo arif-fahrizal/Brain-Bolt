@@ -15,36 +15,31 @@ const CategoriesSection = lazy(() => import('../components/Pages/HomePage/Catego
 
 export default function HomePage() {
   const navigate = useNavigate();
-
   const [selectedCategory, setSelectedCategory] = useState<number>(1);
-
   const { user } = useAuth();
   const { questions, categories } = useQuestions();
   const { value: isModalOpen, onTrue, onFalse } = useBoolean();
 
+  console.log(categories.map(category => category.id));
+
   const handleStartQuiz = () => {
-    if (!user.status) {
-      navigate('/sign-in');
-    } else if (questions.length > 0) {
-      navigate('/quiz');
-    } else {
-      onTrue();
-    }
+    if (!user.status) navigate('/sign-in');
+    else if (questions.length > 0) navigate('/quiz');
+    else onTrue();
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-900 via-purple-900 to-slate-900">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute w-80 h-80 -top-40 -right-40 rounded-full animate-blob mix-blend-multiply filter blur-xl bg-purple-500 opacity-20" />
-        <div className="absolute w-80 h-80 -bottom-40 -left-40 rounded-full animate-blob delay-200 mix-blend-multiply filter blur-xl bg-blue-500 opacity-20" />
-        <div className="absolute w-80 h-80 top-1/2 left-1/2 rounded-full animate-blob delay-300 mix-blend-multiply filter blur-xl bg-pink-500 opacity-20" />
+    <div className="relative min-h-screen overflow-hidden text-white">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-1/2 top-[-22rem] h-[38rem] w-[38rem] -translate-x-1/2 rounded-full border border-[#ff0513]/10 bg-[#ff0513]/[0.07] blur-3xl" />
+        <div className="absolute right-[-12rem] top-[32rem] h-[28rem] w-[28rem] rounded-full bg-[#0f0f38]/90 blur-3xl" />
       </div>
 
-      <div className="container relative mx-auto z-10">
+      <div className="relative z-10 mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <Header />
         <main>
-            <HeroSection handleStartQuiz={handleStartQuiz} />
-            <StatsSection />
+          <HeroSection handleStartQuiz={handleStartQuiz} />
+          <StatsSection />
           <Suspense fallback={<CategorySkeleton />}>
             <CategoriesSection
               categories={categories}

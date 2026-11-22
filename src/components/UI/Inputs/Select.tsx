@@ -1,3 +1,4 @@
+import { ChevronDown } from 'lucide-react';
 import { Activity, useState } from 'react';
 import useBoolean from '../../../hooks/useBoolean';
 
@@ -10,9 +11,7 @@ interface SelectProps {
 
 export default function Select({ label, initialValue = '', options, onChange }: SelectProps) {
   const [selected, setSelected] = useState<string>(initialValue);
-
   const isOpen = useBoolean();
-
   const handleSelect = (option: { value: string | number; label: string }) => {
     setSelected(option.label);
     onChange?.(option.value);
@@ -20,29 +19,26 @@ export default function Select({ label, initialValue = '', options, onChange }: 
   };
 
   return (
-    <div className="relative text-sm text-left text-white">
-      <label htmlFor={`button-${label}`} className="pl-2.5">
+    <div className="relative text-sm text-zinc-300">
+      <label htmlFor={`button-${label}`} className="mb-2 block">
         {label}
       </label>
       <button
         id={`button-${label}`}
         type="button"
-        value={selected}
         onClick={isOpen.toggle}
-        className={`w-full mt-1 px-5 py-2.5 text-left ${selected ? 'text-white' : 'text-gray-400'} rounded-2xl border border-white/20 outline-none transition-all bg-white/10 backdrop-blur-md hover:bg-white/15`}
+        className="flex w-full items-center justify-between rounded-xl border border-white/[0.09] bg-white/[0.035] px-4 py-3 text-left outline-none transition-all hover:border-white/[0.15]"
       >
-        {selected ? selected : label}
+        <span className={selected ? 'text-white' : 'text-zinc-600'}>{selected || `Select ${label.toLowerCase()}`}</span>
+        <ChevronDown className={`h-4 w-4 text-zinc-500 transition-transform ${isOpen.value ? 'rotate-180' : ''}`} />
       </button>
       <Activity mode={isOpen.value ? 'visible' : 'hidden'}>
-        <ul
-          id={`list-${label}`}
-          className="absolute flex flex-col max-h-52 w-full h-fit top-[110%] left-0 p-2.5 text-white rounded-2xl border border-white/20 backdrop-blur-xs overflow-y-auto scrollbar-select z-10"
-        >
+        <ul className="absolute left-0 top-[calc(100%-1px)] z-20 mt-2 max-h-52 w-full overflow-y-auto rounded-xl border border-white/[0.09] bg-[#17174a] p-1.5 shadow-2xl scrollbar-select">
           {options.map(option => (
             <li
               key={option.value}
               onClick={() => handleSelect(option)}
-              className="px-2.5 py-1.5 rounded-full transition-all duration-100 cursor-pointer hover:scale-102 hover:bg-linear-to-r hover:from-purple-500 hover:to-pink-500"
+              className="cursor-pointer rounded-lg px-3 py-2.5 text-zinc-300 transition-colors hover:bg-[#ff0513]/15 hover:text-white"
             >
               {option.label}
             </li>

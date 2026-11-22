@@ -1,4 +1,4 @@
-import { Settings, X } from 'lucide-react';
+import { Settings } from 'lucide-react';
 import { Activity, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useQuestions from '../../../hooks/useQuestions';
@@ -43,10 +43,13 @@ export default function QuizSetupPopup({ initialCategory = 0, isOpen, onClose }:
       const searchParams = new URLSearchParams();
       searchParams.set('type', 'multiple');
 
+      const isValidCategory = categories.some((category: Category) => category.id === params.category);
+      const randomId = categories[Math.floor(Math.random() * categories.length)].id;
+      if (!isValidCategory) params.category = randomId;
+
       (Object.keys(params) as Array<keyof FormParams>).forEach(key => {
         const value = params[key];
-        if (value === '' || value === 0) return;
-        searchParams.set(key, String(value));
+        if (value !== '' && value !== 0) searchParams.set(key, String(value));
       });
 
       const data = await fetchAPI(`/api.php?${searchParams.toString()}`);
@@ -61,57 +64,42 @@ export default function QuizSetupPopup({ initialCategory = 0, isOpen, onClose }:
 
   return (
     <Activity mode={isOpen ? 'visible' : 'hidden'}>
-      <div className="fixed flex items-center justify-center p-4 inset-0 z-50">
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-        <div className="relative max-w-2xl w-full">
-          <div className="absolute w-32 h-32 -top-6 -right-6 rounded-full bg-purple-500/30 blur-2xl" />
-          <div className="absolute w-32 h-32 -bottom-6 -left-6 rounded-full bg-pink-500/30 blur-2xl" />
-
-          <div className="p-4 md:p-12 rounded-3xl border border-white/20 bg-linear-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-md shadow-2xl">
-            <div className="flex justify-between items-center mb-8 text-white">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-white/10">
-                  <Settings className="w-6 h-6" />
-                </div>
-                <div className="text-left">
-                  <h2 className="text-base sm:text-2xl font-bold">Create Your Quiz</h2>
-                  <p className="text-xs sm:text-base text-white/70">Customize your challenge</p>
-                </div>
-              </div>
-              <button onClick={onClose} className="p-2 rounded-lg transition-colors hover:bg-white/10">
-                <X className="w-6 h-6" />
-              </button>
+      <div className="fixed inset-0 z-100 flex items-center justify-center p-4">
+        <div className="absolute inset-0 bg-black/75 backdrop-blur-md" onClick={onClose} />
+        <div className="relative w-full max-w-xl rounded-[2rem] border border-white/[0.1] bg-[#0f0f38]/95 p-5 shadow-[0_30px_100px_rgba(0,0,0,.6)] sm:p-8">
+          <div className="mb-6 flex items-center gap-3">
+            <div className="grid h-11 w-11 place-items-center rounded-xl border border-[#ff0513]/20 bg-[#ff0513]/[0.08]">
+              <Settings className="h-5 w-5 text-[#ff0513]" />
             </div>
-
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-              <Input
-                label="Question Count"
-                type="number"
-                min={10}
-                max={50}
-                defaultValue={10}
-                onChange={({ target }) => setParams(prev => ({ ...prev, amount: Number(target.value) }))}
-                required
-              />
-              <Select
-                label="Select Category"
-                initialValue={initialValue}
-                options={mappedCategories || []}
-                onChange={value => setParams(prev => ({ ...prev, category: Number(value) }))}
-              />
-              <Select
-                label="Select Difficulty"
-                options={DIFFICULTY_OPTIONS}
-                onChange={value => setParams(prev => ({ ...prev, difficulty: String(value) }))}
-              />
-              <button className="w-full p-2.5 text-white rounded-full bg-linear-to-r from-purple-500 to-pink-500">
-                Generate & Start Quiz
-              </button>
-              <p className="text-xs text-center text-gray-300 italic">
-                If you don&apos;t select a category & difficulty, a random one will be selected
-              </p>
-            </form>
+            <div>
+              <h2 className="font-manrope text-xl font-bold">Set up quiz</h2>
+              <p className="mt-1 text-sm text-zinc-500">Customize your challenge</p>
+            </div>
           </div>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <Input
+              label="Number of questions"
+              type="number"
+              min={10}
+              max={50}
+              defaultValue={10}
+              onChange={({ target }) => setParams(prev => ({ ...prev, amount: Number(target.value) }))}
+              required
+            />
+            <Select
+              label="Category"
+              initialValue={initialValue ? stripCategoryPrefix(initialValue) : ''}
+              options={mappedCategories || []}
+              onChange={value => setParams(prev => ({ ...prev, category: Number(value) }))}
+            />
+            <Select
+              label="Difficulty"
+              options={DIFFICULTY_OPTIONS}
+              onChange={value => setParams(prev => ({ ...prev, difficulty: String(value) }))}
+            />
+            <button className="btn-primary mt-2 w-full px-4 py-3.5">Create & start quiz</button>
+            <p className="text-center text-xs text-zinc-600">Category and difficulty can be selected randomly.</p>
+          </form>
         </div>
       </div>
     </Activity>

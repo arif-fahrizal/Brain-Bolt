@@ -13,9 +13,7 @@ type SignInForm = z.infer<typeof SignInSchema>;
 
 export default function SignInPage() {
   const { setUser } = useAuth();
-
   const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -24,12 +22,10 @@ export default function SignInPage() {
   } = useForm<SignInForm>({ resolver: zodResolver(SignInSchema) });
 
   const onSubmit = (data: SignInForm) => {
-    const { username, password } = data;
-
     try {
-      const res = signIn({ username, password });
+      const res = signIn({ username: data.username, password: data.password });
 
-      if (!res) return setError('root', { message: 'Terjadi kesalahan, silahkan coba lagi' });
+      if (!res) return setError('root', { message: 'Something went wrong, please try again' });
       if (!res.status) return setError('root', { message: res.message });
 
       navigate('/');
@@ -40,15 +36,12 @@ export default function SignInPage() {
   };
 
   return (
-    <AuthLayout title="Sign In" error={errors.root?.message}>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col justify-center items-center gap-5 md:h-full mx-auto md:mt-0"
-      >
+    <AuthLayout title="Welcome back" error={errors.root?.message}>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
         <AuthInput
           label="Username"
           type="text"
-          placeholder="Enter your username"
+          placeholder="Enter username"
           autoFocus
           {...register('username')}
           error={errors.username?.message}
@@ -56,15 +49,15 @@ export default function SignInPage() {
         <AuthInput
           label="Password"
           type="password"
-          placeholder="************"
+          placeholder="Enter password"
           {...register('password')}
           error={errors.password?.message}
         />
-        <button className="btn-primary w-full mt-10 px-4 py-2">Sign In</button>
-        <p className="text-sm md:text-base text-center">
-          Don't have an account?{' '}
-          <Link to="/sign-up" className="text-purple-400 underline cursor-pointer">
-            Sign Up
+        <button className="btn-primary mt-3 w-full px-4 py-3.5">Sign in to BrainBolt</button>
+        <p className="text-center text-sm text-zinc-500">
+          Don&apos;t have an account?{' '}
+          <Link to="/sign-up" className="font-semibold text-[#ff0513] hover:text-red-300">
+            Sign up now
           </Link>
         </p>
       </form>

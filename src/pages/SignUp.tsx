@@ -11,7 +11,6 @@ type SignUpForm = z.infer<typeof SignUpSchema>;
 
 export default function SignUpPage() {
   const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -20,12 +19,10 @@ export default function SignUpPage() {
   } = useForm<SignUpForm>({ resolver: zodResolver(SignUpSchema) });
 
   const onSubmit = (data: SignUpForm) => {
-    const { username, password, confirmPassword } = data;
-
     try {
-      const res = signUp({ username, password, confirmPassword });
+      const res = signUp({ username: data.username, password: data.password, confirmPassword: data.confirmPassword });
 
-      if (!res) return setError('root', { message: 'Terjadi kesalahan, silahkan coba lagi' });
+      if (!res) return setError('root', { message: 'Something went wrong, please try again' });
       if (!res.status) return setError('root', { message: res.message });
 
       alert(res.message);
@@ -36,37 +33,34 @@ export default function SignUpPage() {
   };
 
   return (
-    <AuthLayout title="Sign Up" error={errors.root?.message}>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col justify-center items-center gap-5 md:h-full mx-auto md:mt-0"
-      >
+    <AuthLayout title="Create a new account" error={errors.root?.message}>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
         <AuthInput
           label="Username"
           type="text"
-          placeholder="Enter your username"
+          placeholder="Choose a username"
           {...register('username')}
           error={errors.username?.message}
         />
         <AuthInput
           label="Password"
           type="password"
-          placeholder="************"
+          placeholder="Create a password"
           {...register('password')}
           error={errors.password?.message}
         />
         <AuthInput
           label="Confirm Password"
           type="password"
-          placeholder="************"
+          placeholder="Repeat your password"
           {...register('confirmPassword')}
           error={errors.confirmPassword?.message}
         />
-        <button className="btn-primary w-full mt-10 px-4 py-2">Sign Up</button>
-        <p className="text-sm md:text-base text-center">
+        <button className="btn-primary mt-3 w-full px-4 py-3.5">Create account</button>
+        <p className="text-center text-sm text-zinc-500">
           Already have an account?{' '}
-          <Link to="/sign-in" className="text-purple-400 underline cursor-pointer">
-            Sign In
+          <Link to="/sign-in" className="font-semibold text-[#ff0513] hover:text-red-300">
+            Sign in
           </Link>
         </p>
       </form>

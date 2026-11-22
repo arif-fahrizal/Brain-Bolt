@@ -1,6 +1,6 @@
 export default function QuizSkeleton() {
   return (
-    <div className="flex flex-col justify-center items-center w-full min-h-screen p-4 bg-linear-to-br from-slate-900 via-purple-900 to-slate-900">
+    <div className="flex flex-col justify-center items-center w-full min-h-screen p-4 bg-linear-to-br from-[#0f0f38] via-[#17174a] to-[#0f0f38]">
       <div className="min-w-75 max-w-250 w-full mb-2.5 p-5 rounded-2xl border border-white/20 animate-pulse bg-white/10 backdrop-blur-lg shadow-xl">
         <div className="flex items-center justify-between mb-4">
           <div className="space-y-2">
@@ -30,7 +30,7 @@ export default function QuizSkeleton() {
 
       <div className="min-w-75 max-w-250 w-full mb-2.5 p-5 rounded-3xl border border-white/20 animate-pulse bg-white/10 backdrop-blur-lg shadow-2xl">
         <div className="mb-8">
-          <div className="w-28 h-8 mb-4 rounded-full bg-purple-500/20" />
+          <div className="w-28 h-8 mb-4 rounded-full bg-[#ff0513]/20" />
 
           <div className="space-y-3">
             <div className="w-full h-8 rounded-lg bg-white/20" />

@@ -11,44 +11,38 @@ const shuffle = (array: string[]) => [...array].sort(() => Math.random() - 0.5);
 
 const QuizCard = ({ questions, currentQuestion, setCurrentQuestion, setSelectedAnswer }: QuizCardProps) => {
   const question = questions?.[currentQuestion];
-
-  const options = useMemo(() => {
-    const allOptions = question?.incorrect_answers.concat(question?.correct_answer) || [];
-    return shuffle(allOptions);
-  }, [question]);
-
+  const options = useMemo(
+    () => shuffle(question?.incorrect_answers.concat(question?.correct_answer) || []),
+    [question]
+  );
   const handleSelectOptions = (answer: string) => {
-    const selectedAnswer = { correctAnswer: question?.correct_answer, selectedAnswer: answer };
-
-    setSelectedAnswer(prev => [...prev, selectedAnswer]);
+    setSelectedAnswer(prev => [...prev, { correctAnswer: question?.correct_answer, selectedAnswer: answer }]);
     setCurrentQuestion(prev => prev + 1);
   };
 
   return (
-    <div className="min-w-75 max-w-250 w-full mb-2.5 p-5 rounded-3xl border border-white/20 bg-white/10 backdrop-blur-lg shadow-2xl">
-      <div className="mb-8">
-        <div className="inline-block mb-4 px-4 py-2 bg-purple-500/20 rounded-full border border-purple-500/30">
-          <span className="text-sm text-purple-300 font-semibold">Question {currentQuestion + 1}</span>
-        </div>
-        <h2 className="text-2xl md:text-3xl lg:text-4xl text-white font-bold leading-tight">{question?.question}</h2>
+    <div className="surface w-full rounded-[2rem] p-5 sm:p-8">
+      <div className="mb-7">
+        <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[#ff0513]">
+          Question {currentQuestion + 1}
+        </p>
+        <h2 className="font-manrope text-xl font-bold leading-snug sm:text-3xl">{question?.question}</h2>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-white">
-        {options?.map((option, index) => (
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+        {options.map((option, index) => (
           <button
             key={index}
             onClick={() => handleSelectOptions(option)}
-            className="group flex items-center gap-2.5 md:gap-5 w-full p-2.5 md:p-5 text-left rounded-xl border-2 transition-all"
+            className="group flex items-center gap-3 rounded-xl border border-white/[0.08] bg-white/[0.025] p-3 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-[#ff0513]/35 hover:bg-[#ff0513]/[0.07] sm:p-4"
           >
-            <span className="flex justify-center items-center shrink-0 w-8 h-8 md:w-12 md:h-12 text-lg font-bold rounded-md md:rounded-xl border-2 transition-all">
+            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-white/[0.09] text-sm font-bold text-zinc-400 transition-colors group-hover:border-[#ff0513]/30 group-hover:text-red-300">
               {String.fromCharCode(65 + index)}
             </span>
-            <span className="flex-1 text-base md:text-lg text-white font-medium">{option}</span>
+            <span className="flex-1 text-sm font-medium leading-6 text-zinc-200 sm:text-base">{option}</span>
           </button>
         ))}
       </div>
-      <div className="mt-6 text-center">
-        <p className="text-sm text-gray-400">Select an answer to continue. You cannot go back!</p>
-      </div>
+      <p className="mt-5 text-center text-xs text-zinc-600">Select an answer to continue.</p>
     </div>
   );
 };

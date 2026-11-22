@@ -9,32 +9,31 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 export default function AuthInput({ label, type, error, ...InputOptions }: InputProps) {
   const showPassword = useBoolean();
   return (
-    <div className="group w-full">
-      <label htmlFor={label} className={`text-sm tracking-wide ${error && 'text-red-500'}`}>
+    <div className="w-full">
+      <label htmlFor={label} className={`mb-2 block text-sm ${error ? 'text-red-400' : 'text-zinc-400'}`}>
         {label}
       </label>
       <div className="relative">
         <input
           id={label}
           type={type === 'password' && showPassword.value ? 'text' : type}
-          className={`w-full py-3 text-white border-b-2 outline-none duration-300 ${error ? ' border-red-500 group-focus-within:border-red-500' : ' border-gray-300 group-focus-within:border-violet-600'}`}
+          className={`w-full rounded-xl border bg-white/[0.035] px-4 py-3.5 text-white outline-none transition-all placeholder:text-zinc-600 ${error ? 'border-red-400/40 focus:border-red-400' : 'border-white/[0.09] focus:border-[#ff0513]/60 focus:bg-[#ff0513]/[0.03]'} ${type === 'password' ? 'pr-12' : ''}`}
           autoComplete="off"
           {...InputOptions}
         />
-
         {type === 'password' && (
           <button
             type="button"
-            className={`absolute top-1/2 right-0 p-1 ${error ? 'text-red-500 hover:text-red-700' : 'text-gray-500 hover:text-gray-700'} -translate-1/2 focus:outline-none`}
+            className="absolute right-3 top-1/2 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-lg text-zinc-500 transition-colors hover:text-zinc-200"
             onClick={showPassword.toggle}
             aria-label={showPassword.value ? 'Hide password' : 'Show password'}
             tabIndex={-1}
           >
-            {showPassword.value ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+            {showPassword.value ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
           </button>
         )}
       </div>
-      {error && <p className="mt-1 text-xs md:text-sm text-red-500 italic">{error}</p>}
+      {error && <p className="mt-1.5 text-xs text-red-400">{error}</p>}
     </div>
   );
 }
